@@ -1,0 +1,12 @@
+.izquierda {
+float: right;
+}
+#div1 {
+     overflow:scroll;
+     height:800px;
+     width:800px;
+}
+#div1 table {
+    width:500px;
+    background-color:lightgray;
+}
