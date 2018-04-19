@@ -71,13 +71,6 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
   <meta charset="utf-8">
   <title>Noticias - Softdirex</title>
   <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-104472737-1', 'auto');
-    ga('send', 'pageview');
 
   </script>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -101,26 +94,26 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
   <!-- Fonts END -->
 
   <!-- Global styles START -->          
-  <link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../../../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Global styles END --> 
    
   <!-- Page level plugin styles START -->
-  <link href="assets/pages/css/animate.css" rel="stylesheet">
-  <link href="assets/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet">
-  <link href="assets/plugins/owl.carousel/assets/owl.carousel.css" rel="stylesheet">
+  <link href="../../../assets/pages/css/animate.css" rel="stylesheet">
+  <link href="../../../assets/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet">
+  <link href="../../../assets/plugins/owl.carousel/assets/owl.carousel.css" rel="stylesheet">
   <!-- Page level plugin styles END -->
 
   <!-- Theme styles START -->
-  <link href="assets/pages/css/components.css" rel="stylesheet">
-  <link href="assets/pages/css/slider.css" rel="stylesheet">
-  <link href="assets/corporate/css/style.css" rel="stylesheet">
-  <link href="assets/corporate/css/style-responsive.css" rel="stylesheet">
-  <link href="assets/corporate/css/themes/red.css" rel="stylesheet" id="style-color">
-  <link href="assets/corporate/css/custom.css" rel="stylesheet">
+  <link href="../../../assets/pages/css/components.css" rel="stylesheet">
+  <link href="../../../assets/pages/css/slider.css" rel="stylesheet">
+  <link href="../../../assets/corporate/css/style.css" rel="stylesheet">
+  <link href="../../../assets/corporate/css/style-responsive.css" rel="stylesheet">
+  <link href="../../../assets/corporate/css/themes/red.css" rel="stylesheet" id="style-color">
+  <link href="../../../assets/corporate/css/custom.css" rel="stylesheet">
   <!-- Theme styles END -->
   <!-- JS Ventana -->
-  <script src="/int/js/Ventana.js"></script>
+  <script src="../../../int/js/Ventana.js"></script>
   <!-- JS Ventana -->
 </head>
 <!-- Head END -->
@@ -128,7 +121,7 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
 <!-- Body BEGIN -->
 <body class="corporate">
     <!-- BEGIN header content -->
-    <?php include("complements/header.php") ?>
+    <?php include("../../../complements/header.php") ?>
     <!-- END header-->
 
     <!-- Inicio Contenido 1 ------------------------------------------------------------------------>
@@ -164,7 +157,7 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
                         <!-- Carousel items -->
                         <div class="carousel-inner">
                           <div class="item">
-                            <img src="assets/pages/img/posts/img11.png" alt="">
+                            <img src="../../../assets/pages/img/posts/img11.png" alt="">
                           </div>
                           <!--<div class="item">
                                
@@ -172,10 +165,10 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
                             
                           </div>-->
                           <div class="item active">
-                            <img src="assets/pages/img/posts/img12.jpg" alt="">
+                            <img src="../../../assets/pages/img/posts/img12.jpg" alt="">
                           </div>
                           <div class="item">
-                            <img src="assets/pages/img/posts/img13.jpg" alt="">
+                            <img src="../../../assets/pages/img/posts/img13.jpg" alt="">
                           </div>
                         </div>
                         <!-- Carousel nav -->
@@ -260,7 +253,7 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
                 <!-- BEGIN RIGHT SIDEBAR -->            
                 <div class="col-md-3 col-sm-3 blog-sidebar">
                   
-
+                <?php include("../../../complements/navbarNoticias.php") ?>
                   
                   <!-- END BLOG TAGS -->
                 </div>
@@ -272,7 +265,7 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
           <div class="col-md-3 col-sm-3 blog-sidebar">
             <div class="row">
               <!-- CATEGORIES START -->
-                  <?php include("complements/navbarNoticias.php") ?>
+                  
                   <!-- END BLOG PHOTOS STREAM -->
 
                   <!-- BEGIN BLOG TAGS 
@@ -299,38 +292,10 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
 
         
     <!-- Fin Contenido 1 ------------------------------------------------------------------------>
-    <?php
-    $path = "2018/4/15";
-    if (!file_exists($path)) {
-      mkdir($path, 0777, true);
-  }
-    $fp=fopen($path.'/filename4.php','w');
-    $contentHtml = '
-    <?php
-if (!isset($rootDir)) $rootDir = $_SERVER[\'DOCUMENT_ROOT\'];
-require_once($rootDir . "/int/dao/BlogDao.php");
-require_once($rootDir . "/int/dao/ComentarioDao.php");
-require_once($rootDir . "/int/dao/UsuarioDao.php");
-require_once($rootDir . "/int/dao/ProyectoDao.php");
-
-$contenido = "null";
-$cat2=0;
-
-if(isset($_GET[\'contenido\'])){
-  $contenido = $_GET[\'contenido\'];
-  $blog = BlogDao::sqlCargar($contenido);
-  if($blog != null){
-    $titulo=$blog\->getTitulo();
-    $cat2=$blog\->getCategoria();
-  }
-}
-    ';
-    fwrite($fp, $contentHtml);
-    fclose($fp);
-    ?>
+    
 
     <!-- BEGIN FOOTER -->
-    <?php include("complements/footer.php") ?>
+    <?php include("../../../complements/footer.php") ?>
     <!-- END FOOTER -->
 
     <!-- Load javascripts at bottom, this will reduce page load time -->
@@ -338,18 +303,18 @@ if(isset($_GET[\'contenido\'])){
     <!--[if lt IE 9]>
     <script src="assets/plugins/respond.min.js"></script>
     <![endif]--> 
-    <script src="assets/plugins/jquery.min.js" type="text/javascript"></script>
-    <script src="assets/plugins/jquery-migrate.min.js" type="text/javascript"></script>
-    <script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>      
-    <script src="assets/corporate/scripts/back-to-top.js" type="text/javascript"></script>
+    <script src="../../../assets/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../assets/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+    <script src="../../../assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>      
+    <script src="../../../assets/corporate/scripts/back-to-top.js" type="text/javascript"></script>
     <!-- END CORE PLUGINS -->
 
     <!-- BEGIN PAGE LEVEL JAVASCRIPTS (REQUIRED ONLY FOR CURRENT PAGE) -->
-    <script src="assets/plugins/fancybox/source/jquery.fancybox.pack.js" type="text/javascript"></script><!-- pop up -->
-    <script src="assets/plugins/owl.carousel/owl.carousel.min.js" type="text/javascript"></script><!-- slider for products -->
+    <script src="../../../assets/plugins/fancybox/source/jquery.fancybox.pack.js" type="text/javascript"></script><!-- pop up -->
+    <script src="../../../assets/plugins/owl.carousel/owl.carousel.min.js" type="text/javascript"></script><!-- slider for products -->
 
-    <script src="assets/corporate/scripts/layout.js" type="text/javascript"></script>
-    <script src="assets/pages/scripts/bs-carousel.js" type="text/javascript"></script>
+    <script src="../../../assets/corporate/scripts/layout.js" type="text/javascript"></script>
+    <script src="../../../assets/pages/scripts/bs-carousel.js" type="text/javascript"></script>
     <script type="text/javascript">
         jQuery(document).ready(function() {
             Layout.init();    
@@ -359,15 +324,7 @@ if(isset($_GET[\'contenido\'])){
             //Layout.initNavScrolling(); 
         });
     </script>
-<?php
-  if($contenido != "null" && $contenido != ""){
-?>
-    <script>
-        ventana.showHTML('containerRight','<?php echo $contenido; ?>');
-    </script>
-<?php
- }
-?>
+
     <!-- END PAGE LEVEL JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
