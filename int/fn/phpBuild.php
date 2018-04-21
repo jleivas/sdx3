@@ -1,6 +1,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
  
 <?php 
+/*
+Este archivo recibirá por url el contentHtml y la fecha de publicacion para contruir el html 
+*/
+if (!isset($rootDir)) $rootDir = $_SERVER['DOCUMENT_ROOT'];
+require_once($rootDir . "/int/dao/UsuarioDao.php");
+session_start();//carga la sesion
+if(!$_SESSION){
+?>
+<script>
+  alert('Acceso denegado: Debes iniciar sesión primero.');
+window.location.href='../../entrar.php';
+</script>
+<?php
+exit(0);
+}
     $indexUrl = "http://www.softdirex.cl/";
     $año ="2019";
     $mes = "4";

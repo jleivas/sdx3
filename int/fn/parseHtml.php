@@ -1,4 +1,9 @@
 <?php
+/*
+Esta clase es la primera etapa en la construccion del sitio, recibe todos los parametros del formilario
+Se encargará de guardar el registro en la BD y posteriormente enviará por url los datos a la función que 
+construye el php
+*/
 //guarda una nueva noticia
 if (!isset($rootDir)) $rootDir = $_SERVER['DOCUMENT_ROOT'];
 require_once($rootDir . "/int/dao/UsuarioDao.php");
