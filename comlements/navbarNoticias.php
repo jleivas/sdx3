@@ -114,7 +114,7 @@ $ultimas = BlogDao:: sqlTodoLimit(0,6);
                       <?php
                       foreach ($proy as $value) {
                       ?>
-                      <li><a href="<?php echo $value['proy_link'] ?>"><img alt="" src="<?php echo $url.$value['proy_imagen'] ?>"></a></li>
+                      <li><a href=<?php echo $value['proy_link']; ?>><img alt="" src=<?php echo $url."/".$value['proy_imagen']; ?>></a></li>
                       <?php
                       }
                       ?>
