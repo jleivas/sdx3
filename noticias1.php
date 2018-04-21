@@ -35,7 +35,6 @@ else {
 
 
 //FIN Paginación
-$ultimas = BlogDao::sqlTodoLimit(0,4);
 $misRegistros = BlogDao::sqlTodoLimit($inicio,$TAMANO_PAGINA);
 $num_total_registros = BlogDao::sqlContarTodo();
 $cat = 0;
