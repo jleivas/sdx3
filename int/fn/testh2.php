@@ -1,9 +1,75 @@
-<?php
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ 
+<?php 
+ 
+    /*
+     * 1.- Creamos la variable que contiene el archivo que tenemos que crear.
+     * 2.- preguntamos si existe el archivo, si el archivo existe "se ha modificado"
+       en caso contrario el archivo se ha creado.
+     * 3.- Con fopen abrimos un archivo o url, en este caso vamos a abrir un archivo
+       pasando como parámetro la variable $nombre_archivo que es la que contiene 
+       nuestro archivo y como segundo parámetro como lo vamos a abrir, en este caso "a"
+       que nos abre el fichero en solo lectura y sitúa el puntero al final del fichero
+       y en el caso de que no exista lo crea.
+ 
+       ******Para terminar*******
+ 
+       4.-Con el fwrite escribimos dentro del archivo la fecha con la hora de Creación 
+       o modificación, según el caso, con la variable $mensaje, 
+ 
+    */
+    $uri = "../../2018/4"; 
 
-$dominio= $_SERVER["HTTP_HOST"];
+	if(!is_dir($uri)){ 
+	@mkdir($uri, 0755); 
+	}else{ 
+	echo "(0)EXIST:Ya existe ese directorio\n"; 
+	}  
+    $fileName="logs1";
+    $nombre_archivo = "../../2018/4/logs1.php"; 
+ 
+    $contenido = contentHtml();
+    
+ 
+    if($archivo = fopen($nombre_archivo, "4"))
+    {
+        if(fwrite($archivo, $contenido. "\n"))
+        {
+            echo "(1)PAGE:Se ha ejecutado correctamente";
+        }
+        else
+        {
+            echo "(1)PAGE:Ha habido un problema al crear el archivo";
+        }
+ 
+        fclose($archivo);
+    }
+
+    
+    
+  
+
+    $nombre_archivo2 = $uri."/index.html";
+    $redir = "<script>\ndocument.location.href='http://www.softdirex.cl/';\n</script>";
+    if($archivo2 = fopen($nombre_archivo2, "21"))
+    {
+        if(fwrite($archivo2, $redir))
+        {
+            echo "(2)REDIR:Se ha ejecutado correctamente";
+        }
+        else
+        {
+            echo "(2)REDIR:Ha habido un problema al crear el archivo";
+        }
+ 
+        fclose($archivo2);
+    }
+
+
+    function contentHtml(){
+    $content = '<?php $dominio = $_SERVER["HTTP_HOST"];
 $rootUri= "https://".$dominio;
-
-if (!isset($rootDir)) $rootDir = $_SERVER['DOCUMENT_ROOT'];
+if (!isset($rootDir)) $rootDir = $_SERVER["DOCUMENT_ROOT"];
 require_once($rootDir . "/int/dao/BlogDao.php");
 require_once($rootDir . "/int/dao/ComentarioDao.php");
 require_once($rootDir . "/int/dao/UsuarioDao.php");
@@ -12,8 +78,8 @@ require_once($rootDir . "/int/dao/ProyectoDao.php");
 $contenido = "null";
 $cat2=0;
 
-if(isset($_GET['contenido'])){
-  $contenido = $_GET['contenido'];
+if(isset($_GET[\'contenido\'])){
+  $contenido = $_GET[\'contenido\'];
   $blog = BlogDao::sqlCargar($contenido);
   if($blog != null){
     $titulo=$blog->getTitulo();
@@ -42,8 +108,8 @@ else {
 $misRegistros = BlogDao::sqlTodoLimit($inicio,$TAMANO_PAGINA);
 $num_total_registros = BlogDao::sqlContarTodo();
 $cat = 0;
-if(isset($_GET['cat'])){
-  $cat = $_GET['cat'];
+if(isset($_GET[\'cat\'])){
+  $cat = $_GET[\'cat\'];
   
   if(BlogDao::sqlContar($cat) > 0){
     $misRegistros = BlogDao::sqlCategoria($cat,$inicio,$TAMANO_PAGINA);
@@ -51,8 +117,8 @@ if(isset($_GET['cat'])){
   }else{
   ?>
           <script>
-            alert('No existen contenidos en esta categoría,\nvuelva a revisar nuevas publicaciones mas adelante.');
-            window.location.href='noticias.php';
+            alert(\'No existen contenidos en esta categoría,\\nvuelva a revisar nuevas publicaciones mas adelante.\');
+            window.location.href=\'noticias.php\';
           </script>
         <?php
   }
@@ -83,7 +149,7 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
   <meta name="description" content="Somos una empresa dedicada a ofrecer servicios informáticos: Sitios web, Aplicaciones web, Servicio técnico, Desarrollo de software etc. Revise nuestros servicios aquí.">
-  <meta content="sitios web, aplicaciones web, desarrollo de software, programas para empresas, sistemas informaticos, programadores, desarrollo de aplicaciones, desarrollo de sitios web, paginas web, crear pagina web, comprar pagina web, crear un sitio web, crear sitio web, diseño de sitios web, diseño de aplicaciones, aplicaciones moviles, crear un programa, programa para empresas" name="keywords">
+  <meta content="sitios web, aplicaciones web, desarrollo de software, programas para empresas, sistemas informaticos, programadores, desarrollo de aplicaciones, desarrollo de sitios web, paginas web, crear pagina web, comprar pagina web, crear un sitio web, crear sitio web, diseño de sitios web, diseño de aplicaciones, aplicaciones moviles, crear un programa, programa para empresas." name="keywords">
   <meta content="softdirex" name="author">
 
   <meta property="og:site_name" content="Softdirex">
@@ -217,11 +283,11 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
                     ?>
                     <div class="media">                    
                       <a href="" class="pull-left">
-                      <img src=<?php echo $rootUri."/int/imgPerfil/".strtolower(substr($fila['com_autor'], 0, 1))."jpg"; ?> alt="" class="media-object">
+                      <img src=<?php echo $rootUri."/int/imgPerfil/".strtolower(substr($fila[\'com_autor\'], 0, 1))."jpg"; ?> alt="" class="media-object">
                       </a>
                       <div class="media-body">
-                        <h4 class="media-heading"><?php echo $fila['com_autor'] ?> <span><?php echo $fila['com_fecha'] ?></span></h4>
-                        <p><?php echo $fila['com_mensaje'] ?></p>  
+                        <h4 class="media-heading"><?php echo $fila[\'com_autor\'] ?> <span><?php echo $fila[\'com_fecha\'] ?></span></h4>
+                        <p><?php echo $fila[\'com_mensaje\'] ?></p>  
                       </div>
                     </div>
                     <?php
@@ -334,4 +400,9 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
     <!-- END PAGE LEVEL JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
-</html>
+</html>';
+
+return $content;
+    }
+ 
+ ?>
