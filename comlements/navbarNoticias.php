@@ -1,45 +1,55 @@
+<?php 
+if (!isset($rootDir)) $rootDir = $_SERVER['DOCUMENT_ROOT'];
+require_once($rootDir . "/int/dao/BlogDao.php");
+
+$dominio= $_SERVER["HTTP_HOST"];
+$url= "https://".$dominio;
+
+$ultimas = BlogDao:: sqlTodoLimit(0,6);
+ ?>
 <!-- CATEGORIES START -->
+
 <h2 class="no-top-space">Categorias</h2>
                   <ul class="nav sidebar-categories margin-bottom-40">
                     <?php if($cat==0 && $cat2==0){?>
-                    <li class="active"><a href="noticias.php">Todas (<?php echo BlogDao::sqlContarTodo(); ?>)</a></li>
+                    <li class="active"><a href=<?php echo $url."/noticias.php"; ?>>Todas (<?php echo BlogDao::sqlContarTodo(); ?>)</a></li>
                     <?php }else{?>
-                    <li><a href="noticias.php">Todas (<?php echo BlogDao::sqlContarTodo(); ?>)</a></li>
+                    <li><a href=<?php echo $url."/noticias.php"; ?>>Todas (<?php echo BlogDao::sqlContarTodo(); ?>)</a></li>
                     <?php }?>
 
 
                     <?php if($cat==1 || $cat2==1){?>
-                    <li class="active"><a href="noticias.php?cat=1">Sitios web (<?php echo BlogDao::sqlContar(1); ?>)</a></li>
+                    <li class="active"><a href=<?php echo $url."/noticias.php?cat=1"; ?>>Sitios web (<?php echo BlogDao::sqlContar(1); ?>)</a></li>
                     <?php }else{?>
-                    <li><a href="noticias.php?cat=1">Sitios web (<?php echo BlogDao::sqlContar(1); ?>)</a></li>
+                    <li><a href=<?php echo $url."/noticias.php?cat=1"; ?>>Sitios web (<?php echo BlogDao::sqlContar(1); ?>)</a></li>
                     <?php }?>
 
 
                     <?php if($cat==2 || $cat2==2){?>
-                    <li class="active"><a href="noticias.php?cat=2">Sistemas (<?php echo BlogDao::sqlContar(2); ?>)</a></li>
+                    <li class="active"><a href=<?php echo $url."/noticias.php?cat=2"; ?>>Sistemas (<?php echo BlogDao::sqlContar(2); ?>)</a></li>
                     <?php }else{?>
-                    <li><a href="noticias.php?cat=2">Sistemas (<?php echo BlogDao::sqlContar(2); ?>)</a></li>
+                    <li><a href=<?php echo $url."/noticias.php?cat=2"; ?>>Sistemas (<?php echo BlogDao::sqlContar(2); ?>)</a></li>
                     <?php }?>
 
 
                     <?php if($cat==3 || $cat2==3){?>
-                    <li class="active"><a href="noticias.php?cat=3">Tecnología (<?php echo BlogDao::sqlContar(3); ?>)</a></li>
+                    <li class="active"><a href=<?php echo $url."/noticias.php?cat=3"; ?>>Tecnología (<?php echo BlogDao::sqlContar(3); ?>)</a></li>
                     <?php }else{?>
-                    <li><a href="noticias.php?cat=3">Tecnología (<?php echo BlogDao::sqlContar(3); ?>)</a></li>
+                    <li><a href=<?php echo $url."/noticias.php?cat=3"; ?>>Tecnología (<?php echo BlogDao::sqlContar(3); ?>)</a></li>
                     <?php }?>
                     
 
                     <?php if($cat==4 || $cat2==4){?>
-                    <li class="active"><a href="noticias.php?cat=4">Proyectos (<?php echo BlogDao::sqlContar(4); ?>)</a></li>
+                    <li class="active"><a href=<?php echo $url."/noticias.php?cat=4"; ?>>Proyectos (<?php echo BlogDao::sqlContar(4); ?>)</a></li>
                     <?php }else{?>
-                    <li><a href="noticias.php?cat=4">Proyectos (<?php echo BlogDao::sqlContar(4); ?>)</a></li>
+                    <li><a href=<?php echo $url."/noticias.php?cat=4"; ?>>Proyectos (<?php echo BlogDao::sqlContar(4); ?>)</a></li>
                     <?php }?>
                     
 
                     <?php if($cat==5 || $cat2==5){?>
-                    <li class="active"><a href="noticias.php?cat=5">Móviles (<?php echo BlogDao::sqlContar(5); ?>)</a></li>
+                    <li class="active"><a href=<?php echo $url."/noticias.php?cat=5"; ?>>Móviles (<?php echo BlogDao::sqlContar(5); ?>)</a></li>
                     <?php }else{?>
-                    <li><a href="noticias.php?cat=5">Móviles (<?php echo BlogDao::sqlContar(5); ?>)</a></li>
+                    <li><a href=<?php echo $url."/noticias.php?cat=5"; ?>>Móviles (<?php echo BlogDao::sqlContar(5); ?>)</a></li>
                     <?php }?>
                     
                   </ul>
@@ -68,7 +78,7 @@
                   <!-- BEGIN BLOG TALKS -->
                   <div class="blog-talks margin-bottom-30">
                     <hr>
-                    <h2><a href="servicios.html">Servicios Softdirex</a></h2>
+                    <h2><a href=<?php echo $url."/servicios.php"; ?>>Servicios Softdirex</a></h2>
                   </div>                            
                   <!-- END BLOG TALKS -->                        
 
@@ -104,7 +114,7 @@
                       <?php
                       foreach ($proy as $value) {
                       ?>
-                      <li><a href="<?php echo $value['proy_link'] ?>"><img alt="" src="<?php echo $value['proy_imagen'] ?>"></a></li>
+                      <li><a href="<?php echo $value['proy_link'] ?>"><img alt="" src="<?php echo $url.$value['proy_imagen'] ?>"></a></li>
                       <?php
                       }
                       ?>

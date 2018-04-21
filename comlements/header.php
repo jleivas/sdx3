@@ -1,6 +1,9 @@
 <?php 
 $dominio= $_SERVER["HTTP_HOST"];
 $url= "https://".$dominio;
+if (!isset($rootDir)) $rootDir = $_SERVER['DOCUMENT_ROOT'];
+require_once( $rootDir . "/int/dao/UsuarioDao.php");
+session_start();//carga la sesion
  ?>
 <div class="pre-header">
         <div class="container">
@@ -14,12 +17,29 @@ $url= "https://".$dominio;
                 </div>
                 <!-- END TOP BAR LEFT PART -->
                 <!-- BEGIN TOP BAR MENU -->
+                <?php 
+                if(!$_SESSION){
+                ?>
                 <div class="col-md-6 col-sm-6 additional-nav">
                     <ul class="list-unstyled list-inline pull-right">
                         <li><a href=<?php echo $url."/entrar.php"; ?>>Ingresar</a></li>
                         <li><a href=<?php echo $url."/registro.php"; ?>>Registrarse</a></li>
                     </ul>
                 </div>
+                <?php
+                }else{
+                ?>
+                <div class="col-md-6 col-sm-6 additional-nav">
+                    <ul class="list-unstyled list-inline pull-right">
+                        <li ><a href=<?php echo $url."/misdatos.php" ?>><?php echo $_SESSION['usuario']->getNombre() ?></a></li>
+                        <li><form action=<?php echo $url."/int/fn/cerrar.php" ?>>
+                     <button type="submit" class="btn btn-primary">Cerrar sesión</button>
+                    </form></li>
+                    </ul>
+                </div>
+                <?php
+                } 
+                ?>
                 <!-- END TOP BAR MENU -->
             </div>
         </div>        
@@ -63,6 +83,16 @@ $url= "https://".$dominio;
                 
               </a>
             </li>
+            <?php if(!$_SESSION){ ?>
+              <li class="dropdown">
+                <a href=<?php echo $url."/entrar.php" ?>>
+                    Cliente
+                    
+                </a>
+            </li>
+            <?php 
+            }else{
+            ?>
             <li class="dropdown dropdown-megamenu">
                 <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">
                     Cliente
@@ -86,9 +116,13 @@ $url= "https://".$dominio;
                                     </ul>
                                 </div>
                                 <div class="col-md-4 header-navigation-col">
-                                    <h4>Acceso</h4>
+                                    <h4>Sesión</h4>
                                     <ul>
-                                    <li><a href=<?php echo $url."/cuenta.php"; ?>>Mi sesión</a></li>
+                                    <li>
+                                      <form action=<?php echo $url."/int/fn/cerrar.php"; ?>>
+                                        <button type="submit" class="btn btn-primary">Cerrar sesión</button>
+                                      </form>
+                                    </li>
                                     </ul>
                                 </div>
                             </div>
@@ -96,6 +130,9 @@ $url= "https://".$dominio;
                     </li>
                 </ul>
             </li>
+            <?php 
+            }
+            ?>
             <li class="dropdown">
               <a href=<?php echo $url."/compras.html"; ?>>
                 Compras 
@@ -121,7 +158,7 @@ $url= "https://".$dominio;
               </a>
             </li>
             <li class="dropdown">
-              <a¿ href=<a href=<?php echo $url."/page-contacts.html; ?>>
+              <a href=<?php echo $url."/page-contacts.html"; ?>>
                 Contacto 
                 
               </a>

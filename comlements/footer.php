@@ -1,5 +1,8 @@
+<?php 
+$dominio= $_SERVER["HTTP_HOST"];
+$url= "https://".$dominio;
+ ?>
 <!-- BEGIN PRE-FOOTER -->
-<?php if (!isset($rootDir)) $rootDir = $_SERVER['DOCUMENT_ROOT']; ?>
 <div class="pre-footer">
 
       <div class="container">
@@ -26,7 +29,7 @@
             <div class="pre-footer-subscribe-box pre-footer-subscribe-box-vertical">
               <h2>Boletín</h2>
               <p>Subscribete a nuestro boletin y recibe noticias de nuestros servicios</p>
-              <form action= <?php echo $rootDir."subscribir.php"  ?> method="post">
+              <form action= <?php echo $url."/subscribir.php"  ?> method="post">
                 <div class="input-group">
                   <input type="text" placeholder="tuemail@mail.com" class="form-control" name="mail" id="mail" required="">
                   <span class="input-group-btn">

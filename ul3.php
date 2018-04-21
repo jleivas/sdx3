@@ -1,4 +1,8 @@
 <?php
+
+$dominio= $_SERVER["HTTP_HOST"];
+$rootUri= "https://".$dominio;
+
 if (!isset($rootDir)) $rootDir = $_SERVER['DOCUMENT_ROOT'];
 require_once($rootDir . "/int/dao/BlogDao.php");
 require_once($rootDir . "/int/dao/ComentarioDao.php");
@@ -53,6 +57,8 @@ if(isset($_GET['cat'])){
         <?php
   }
 }
+
+$misRegistros2 = ComentarioDao::sqlListar("link");
 
 //calculo el total de páginas
 $total_paginas = ceil($num_total_registros / $TAMANO_PAGINA);
@@ -122,17 +128,17 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
 <body class="corporate">
     <!-- BEGIN header content -->
     <?php include("../../../complements/header.php") ?>
-    <!-- END header-->
+     <!--END header-->
 
     <!-- Inicio Contenido 1 ------------------------------------------------------------------------>
     <div class="main">
       <div class="container">
         <ul class="breadcrumb">
-            <li><a href="index.php">Inicio</a></li>
+            <li><a href=<?php echo $rootUri."/index.php"; ?>>Inicio</a></li>
             <?php 
             if(isset($titulo)){
             ?>
-            <li><a href="noticias.php">Noticias</a></li>
+            <li><a href=<?php echo $rootUri."/noticias.php"; ?>>Noticias</a></li>
             <li class="active"><?php echo $titulo; ?></li>
             <?php 
             }else{
@@ -157,7 +163,7 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
                         <!-- Carousel items -->
                         <div class="carousel-inner">
                           <div class="item">
-                            <img src="../../../assets/pages/img/posts/img11.png" alt="">
+                            <img src=<?php echo $rootUri."/assets/pages/img/posts/img11.png"; ?> alt="">
                           </div>
                           <!--<div class="item">
                                
@@ -165,10 +171,10 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
                             
                           </div>-->
                           <div class="item active">
-                            <img src="../../../assets/pages/img/posts/img12.jpg" alt="">
+                            <img src=<?php echo $rootUri."/assets/pages/img/posts/img12.jpg"; ?> alt="">
                           </div>
                           <div class="item">
-                            <img src="../../../assets/pages/img/posts/img13.jpg" alt="">
+                            <img src=<?php echo $rootUri."/assets/pages/img/posts/img13.jpg"; ?> alt="">
                           </div>
                         </div>
                         <!-- Carousel nav -->
@@ -207,11 +213,11 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
                   <h2>Comentarios</h2>
                   <div class="comments">
                     <?php
-                    foreach ($misRegistros as $fila) {
+                    foreach ($misRegistros2 as $fila) {
                     ?>
                     <div class="media">                    
                       <a href="" class="pull-left">
-                      <img src="../../int/imgPerfil/<?php echo  strtolower(substr($fila['com_autor'], 0, 1));?>.jpg" alt="" class="media-object">
+                      <img src=<?php echo $rootUri."/int/imgPerfil/".strtolower(substr($fila['com_autor'], 0, 1))."jpg"; ?> alt="" class="media-object">
                       </a>
                       <div class="media-body">
                         <h4 class="media-heading"><?php echo $fila['com_autor'] ?> <span><?php echo $fila['com_fecha'] ?></span></h4>
@@ -227,11 +233,11 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
                   <!--inicio formulario-->
                   <div class="post-comment padding-top-40">
                     <h3>Comenta</h3>
-                    <form role="form" action="int/fn/comentar.php" method="post">
+                    <form role="form" action=<?php echo $rootUri."/int/fn/comentar.php" ?> method="post">
                       <div class="form-group">
                         <label>Nombre</label>
                         <input class="form-control" type="text" name="nombre" id="nombre" required="">
-                        <input type="hidden" name="link" id="link" value="<?php echo $url ?>">
+                        <input type="hidden" name="link" id="link" value="<?php echo  $rootUri."/".$url ?>">
                       </div>
 
                       <div class="form-group">
