@@ -257,19 +257,85 @@ window.location.href='entrar.php';
             <div class="content-form-page">
               <div class="row">
                 <div class="col-md-7 col-sm-7">
-                  <form action="int/fn/admPublicacion-registrar.php" class="form-horizontal" role="form" method="post">
+                  <form action="int/fn/parseHtml.php" class="form-horizontal" role="form" method="post">
                     <fieldset>
                       <legend>Nueva Publicación</legend>
                       <div class="form-group">
-                        <label for="link" class="col-lg-4 control-label">Link de acceso <span class="require">*</span></label>
+                        <label for="titulo" class="col-lg-4 control-label">Nombre <span class="require">*</span></label>
                         <div class="col-lg-8">
-                          <input type="text" class="form-control" id="link" name="link" value="https://softdirex.cl/AÑO/MES/DIA/NOMBRE.php"  minlength="10" maxlength="100" required="">
+                          <input type="text" class="form-control" id="titulo" name="titulo"  minlength="10" maxlength="100" required="">
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="titulo" class="col-lg-4 control-label">Titulo <span class="require">*</span></label>
                         <div class="col-lg-8">
-                          <input type="text" class="form-control" id="titulo" name="titulo" minlength="3" maxlength="60" required="">
+                          <input type="text" class="form-control" id="longTitle" name="longTitle" minlength="3" maxlength="60" required="">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="img1" class="col-lg-4 control-label">Imagen 1</label>
+                        <div class="col-lg-8">
+                          <input name="img1" type="file">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="img2" class="col-lg-4 control-label">Imagen 2</label>
+                        <div class="col-lg-8">
+                          <input name="img2" type="file">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="img3" class="col-lg-4 control-label">Imagen 3</label>
+                        <div class="col-lg-8">
+                          <input name="img3" type="file">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                      <label for="video" class="col-lg-4 control-label">Url del video (opcional)</label>
+                        <div class="col-lg-8">
+                          <input type="text" class="form-control" id="video" name="video"  minlength="10" maxlength="100">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="introText" class="col-lg-4 control-label">Primer parrafo <span class="require">*</span></label>
+                        <div class="col-lg-8">
+                          <textarea class="form-control" rows="10" name="introText" required></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="commit" class="col-lg-4 control-label">Reseña o comentario <span class="require">*</span></label>
+                        <div class="col-lg-8">
+                          <textarea class="form-control" rows="10" name="commit" required></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="autorCommit" class="col-lg-4 control-label">Autor de reseña</label>
+                        <div class="col-lg-8">
+                          <input type="text" class="form-control" id="autorCommit" name="autorCommit" minlength="4" maxlength="60">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="lugarAutorCommit" class="col-lg-4 control-label">Lugar o procedencia del autor</label>
+                        <div class="col-lg-8">
+                          <input type="text" class="form-control" id="lugarAutorCommit" name="lugarAutorCommit" minlength="4" maxlength="60">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="parraf1" class="col-lg-4 control-label">Ultimo parrafo <span class="require">*</span></label>
+                        <div class="col-lg-8">
+                          <textarea class="form-control" rows="10" name="parraf1" required></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="fuente" class="col-lg-4 control-label">Fuente</label>
+                        <div class="col-lg-8">
+                          <input type="text" class="form-control" id="fuente" name="fuente" minlength="4" maxlength="100">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="linkFuente" class="col-lg-4 control-label">Link fuente</label>
+                        <div class="col-lg-8">
+                          <input type="text" class="form-control" id="linkFuente" name="linkFuente" minlength="4" maxlength="100">
                         </div>
                       </div>
                       <div class="form-group">
@@ -285,12 +351,6 @@ window.location.href='entrar.php';
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="imagen" class="col-lg-4 control-label">Nombre de la imagen <span class="require">*</span></label>
-                        <div class="col-lg-8">
-                          <input type="text" class="form-control" id="imagen" name="imagen" minlength="4" maxlength="12" required="">
-                        </div>
-                      </div>
-                      <div class="form-group">
                         <label for="monto" class="col-lg-4 control-label">Categoria <span class="require">*</span></label>
                         <div class="col-lg-8">
                           <select name="categoria" class="form-control">
@@ -300,12 +360,6 @@ window.location.href='entrar.php';
                             <option value="4">Proyectos</option>
                             <option value="5">Móviles</option>
                           </select>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="cliente" class="col-lg-4 control-label">Cita o parte del contenido <span class="require">*</span></label>
-                        <div class="col-lg-8">
-                          <textarea class="form-control" rows="10" name="cita" required></textarea>
                         </div>
                       </div>
                     </fieldset>

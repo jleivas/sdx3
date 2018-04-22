@@ -29,36 +29,36 @@ exit(0);
 
 
 
-if(isset($_POST['link'])){
-    $link=$_POST['link'];
+if(isset($_GET['link'])){
+    $link=$_GET['link'];
 	$titulo="";
-	if(isset($_POST['titulo'])){
-		$titulo=$_POST['titulo'];
+	if(isset($_GET['titulo'])){
+		$titulo=$_GET['titulo'];
 	}
 	$cita="";
-	if(isset($_POST['cita'])){
-		$cita=$_POST['cita'];
+	if(isset($_GET['cita'])){
+		$cita=$_GET['cita'];
 	}
 	$autor="";
-	if(isset($_POST['autor'])){
-		$autor=$_POST['autor'];
+	if(isset($_GET['autor'])){
+		$autor=$_GET['autor'];
 	}
 	$fecha="";
-	if(isset($_POST['fecha'])){
-		$fecha=$_POST['fecha'];
+	if(isset($_GET['fecha'])){
+		$fecha=$_GET['fecha'];
 	}
 	$categoria=0;
-	if(isset($_POST['categoria'])){
-		$categoria=$_POST['categoria'];
+	if(isset($_GET['categoria'])){
+		$categoria=$_GET['categoria'];
 	}
 	$estado=1;
 	$imagen="assets/pages/img/posts/default.jpg";
-	if(isset($_POST['imagen'])){
-		$imagen= "assets/pages/img/posts/".$_POST['imagen'];
+	if(isset($_GET['imagen'])){
+		$imagen= "assets/pages/img/posts/".$_GET['imagen'];
 	}
 	$enviar=1;
-	if(isset($_POST['enviar'])){
-		$enviar=$_POST['enviar'];
+	if(isset($_GET['enviar'])){
+		$enviar=$_GET['enviar'];
 	}
 	$id = BlogDao::sqladdId();
 	try{
@@ -66,12 +66,6 @@ if(isset($_POST['link'])){
 			$blog=new Blog($id,$link, $titulo, $cita, $autor,$fecha,$imagen,$categoria,$estado);
 
 			if(BlogDao::sqlInsert($blog) > 0){
-			?>
-				<script>
-					alert('La publicación <?php echo $titulo;?> ha sido registrada.');
-					//window.location.href='javascript:history.go(-1);';
-				</script>
-			<?php
 				if($enviar == 2){
 					$misRegistros = CorreosDao::sqlTodo();
 					$cont =0;
@@ -85,6 +79,14 @@ if(isset($_POST['link'])){
 						</script>
 					<?php
 					
+				}else{
+					?>
+					<script>
+						alert('La publicación <?php echo $titulo;?> ha sido registrada.');
+						window.location.href='javascript:history.go(-1);';
+					</script>
+					<?php
+					exit(0);
 				}
 			}else{
 			?>

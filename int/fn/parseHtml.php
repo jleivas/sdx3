@@ -32,10 +32,103 @@ window.location.href='../../entrar.php';
 exit(0);
 }
 
+// ---------------------------- IMAGENES 1, 2 Y 3 ---------------------------------------------
+$img1="null";
+if(!is_null($_FILES['img1']['size'])){
+    $img1= $_FILES['img1']['name'];
+    
+    $target_path = "../../assets/pages/img/posts/";
+    
+    $target_path = $target_path .$img1;
+
+    $tamano=$_FILES['img1']['size'];
+            
+    if($tamano==0){//si no se subio imagen, esto puede ser porque subio archivos de mas de 2MB de peso
+        ?>
+            <script>
+            alert('Ocurrió un error al subir la imagen\nDebe seleccionar una imagen válida.');
+            window.location.href='javascript:history.go(-1);';
+            </script>
+        <?php
+    }else{
+        if(!move_uploaded_file($_FILES['img1']['tmp_name'], $target_path)){ //si logra mover la imagen a la carpeta,
+          ?>
+              <script>
+                  alert('Ocurrió un error al subir la imagen\nDebe seleccionar una imagen válida.');
+                  window.location.href='javascript:history.go(-1);';
+              </script>
+          <?php
+        }
+    }
+}
+$img2="null";
+if(!is_null($_FILES['img2']['size'])){
+    $img2= $_FILES['img2']['name'];
+    
+    $target_path = "../../assets/pages/img/posts/";
+    
+    $target_path = $target_path .$img2;
+
+    $tamano=$_FILES['img2']['size'];
+            
+    if($tamano==0){//si no se subio imagen, esto puede ser porque subio archivos de mas de 2MB de peso
+        ?>
+            <script>
+            alert('Ocurrió un error al subir la imagen\nDebe seleccionar una imagen válida.');
+            window.location.href='javascript:history.go(-1);';
+            </script>
+        <?php
+    }else{
+        if(!move_uploaded_file($_FILES['img2']['tmp_name'], $target_path)){ //si logra mover la imagen a la carpeta,
+          ?>
+              <script>
+                  alert('Ocurrió un error al subir la imagen\nDebe seleccionar una imagen válida.');
+                  window.location.href='javascript:history.go(-1);';
+              </script>
+          <?php
+        }
+    }
+}
+$img3="null";
+if(!is_null($_FILES['img3']['size'])){
+    $img3= $_FILES['img3']['name'];
+    
+    $target_path = "../../assets/pages/img/posts/";
+    
+    $target_path = $target_path .$img3;
+
+    $tamano=$_FILES['img3']['size'];
+            
+    if($tamano==0){//si no se subio imagen, esto puede ser porque subio archivos de mas de 2MB de peso
+        ?>
+            <script>
+            alert('Ocurrió un error al subir la imagen\nDebe seleccionar una imagen válida.');
+            window.location.href='javascript:history.go(-1);';
+            </script>
+        <?php
+    }else{
+        if(!move_uploaded_file($_FILES['img3']['tmp_name'], $target_path)){ //si logra mover la imagen a la carpeta,
+          ?>
+              <script>
+                  alert('Ocurrió un error al subir la imagen\nDebe seleccionar una imagen válida.');
+                  window.location.href='javascript:history.go(-1);';
+              </script>
+          <?php
+        }
+    }
+}
+// ---------------------------- IMAGENES 1, 2 Y 3 ---------------------------------------------
+
+
 $contentHtml = "";
 
 if(isset($_POST['fecha'])){//será el path de la noticia
-    $path=$_POST['fecha'];
+    $fecha=$_POST['fecha'];
+    $dia = substr($fecha,0,2);
+    $mes = substr($fecha,3,2);
+    $anio = substr($fecha,6,4);
+    $indexUrl = "http://www.softdirex.cl/";
+
     $contentHtml = $contentHtml . '
     <?php $dominio = $_SERVER["HTTP_HOST"];
     $rootUri= "https://".$dominio;
@@ -191,8 +284,8 @@ if(isset($_POST['fecha'])){//será el path de la noticia
             <div class="col-md-12 col-sm-12">
               <!-- Inicio Contenido principal   ------------------------------------------------>
     ';
-	if(isset($_POST['category'])){
-        $category=$_POST['category'];//BD
+	if(isset($_POST['categoria'])){
+        $categoria=$_POST['categoria'];//BD
         if(isset($_POST['autor'])){
             $autor=$_POST['autor'];
             if(isset($_POST['titulo'])){
@@ -207,18 +300,23 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                             <div class="carousel-inner">
                 ';
                 $titulo=$_POST['titulo'];
-                if(isset($_POST['img1'])){
-                    $img1=$_POST['img1'];
+                $fileName = str_replace(" ", "-", $titulo, $cont);
+                $fileName = $fileName.".php";
+                if(strcmp($img1, "null") === 0){
+                    $img1 = "default.jpg";
+                    $contentHtml = $contentHtml.'
+                            <div class="item active">
+                                <img src=<?php echo $rootUri."/assets/pages/img/posts/default.jpg"; ?> alt="">
+                            </div>
+                    ';//no img1 CARRUSEL
+                }else{
                     $contentHtml = $contentHtml.'
                             <div class="item active">
                                 <img src=<?php echo $rootUri."/assets/pages/img/posts/'.$img1.'"; ?> alt="">
                             </div>
                     ';
-                }else{
-                    //no img1 CARRUSEL
                 }
-                if(isset($_POST['img2'])){
-                    $img2=$_POST['img2'];
+                if(strcmp($img2, "null") != 0){
                     $contentHtml = $contentHtml.'
                             <div class="item active">
                                 <img src=<?php echo $rootUri."/assets/pages/img/posts/'.$img2.'"; ?> alt="">
@@ -227,8 +325,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                 }else{
                     //no img2 CARRUSEL
                 }
-                if(isset($_POST['img3'])){
-                    $img3=$_POST['img3'];
+                if(strcmp($img3, "null") != 0){
                     $contentHtml = $contentHtml.'
                             <div class="item active">
                                 <img src=<?php echo $rootUri."/assets/pages/img/posts/'.$img3.'"; ?> alt="">
@@ -468,6 +565,84 @@ if(isset($_POST['fecha'])){//será el path de la noticia
 </html>
                     ';
                         //formato de fecha DD-MM-AAAA
+
+                        $folder1 = "../../".$anio; 
+                        if(!is_dir($folder1)){ 
+                        @mkdir($folder1, 0755); 
+                        }
+
+                        $folder2 = $folder1."/".$mes; 
+                        if(!is_dir($folder2)){ 
+                        @mkdir($folder2, 0755); 
+                        }
+                        
+                        $folder3 = $folder2."/".$dia; 
+                        if(!is_dir($folder3)){ 
+                        @mkdir($folder3, 0755); 
+                        }
+
+                        $nombre_archivo = $folder3."/".$fileName; 
+ 
+                        $contenido = $contentHtml;
+
+                        if($archivo = fopen($nombre_archivo, "a"))
+                        {
+                            if(fwrite($archivo,  $contenido. "\n"))
+                            {
+                                ?>
+                                <script>
+                                alert('Archivo creado con exito.');
+                                </script>
+                                <?php
+                            }
+                            else
+                            {
+                                ?>
+                                <script>
+                                alert('Ha habido un problema al crear el archivo.');
+                                </script>
+                                <?php
+                            }
+                    
+                            fclose($archivo);
+                        }
+                        
+                        
+                    
+                        $nombre_archivo2 = $folder3."/index.html";
+                        $redir = "<script>\ndocument.location.href='".$indexUrl."';\n</script>";
+                        if($archivo2 = fopen($nombre_archivo2, "a"))
+                        {
+                            if(fwrite($archivo2, $redir))
+                            {
+                                ?>
+                                <script>
+                                alert('Archivo de redireccionamiento creado con exito.');
+                                </script>
+                                <?php
+                            }
+                            else
+                            {
+                                ?>
+                                <script>
+                                alert('Ocurrió un problema al crear el archivo de redireccionamiento.');
+                                </script>
+                                <?php
+                            }
+                    
+                            fclose($archivo2);
+                            $enviar=1;
+                            if(isset($_POST['enviar'])){
+                                $enviar=$_POST['enviar'];
+                            }
+                            ?>
+                            <script>
+                            alert('Se generará un registro en la base de datos.');
+                            window.location.href='admPublicacion-registrar.php?link='.$nombre_archivo.'&titulo='.$titulo.'&cita='.$commit.'&autor='.$autor.'&fecha='.$fecha.'&categoria='.$categoria.'&imagen='.img1.'&enviar='.$enviar;
+                            </script>
+                            <?php
+                            exit(0);
+                        }
                     
                 }else{
                     //no commit <blockquote><p>
@@ -491,7 +666,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
   window.location.href='javascript:history.go(-1);';
 </script>
 <?php
-exit(0);
 
+exit(0);
 
 ?>
