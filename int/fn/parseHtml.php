@@ -433,7 +433,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                     }else{
                         //no fuente <p>
                     }
-|                    $contentHtml = $contentHtml.'
+                    $contentHtml = $contentHtml.'
                     <ul class="blog-info">
                     <li><i class="fa fa-user"></i> '.$autor.'</li>
                     <li><i class="fa fa-calendar"></i>'.$fecha.'</li>
