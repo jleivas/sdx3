@@ -1,15 +1,19 @@
-<?php
-/*
-Esta clase es la primera etapa en la construccion del sitio, recibe todos los parametros del formilario
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+</head> 
+<!-- Esta clase es la primera etapa en la construccion del sitio, recibe todos los parametros del formilario
 Se encargará de guardar el registro en la BD y posteriormente enviará por url los datos a la función que 
 construye el php
-*/
-//guarda una nueva noticia
+-->
+<body> 
+<?php
 if (!isset($rootDir)) $rootDir = $_SERVER['DOCUMENT_ROOT'];
 require_once($rootDir . "/int/dao/UsuarioDao.php");
 require_once($rootDir . "/int/dao/BlogDao.php");
 require_once($rootDir . "/int/dao/class.phpmailer.php");
-session_start();//carga la sesion
+require_once($rootDir . "/int/dao/CorreosDao.php");
+session_start();
 if(!$_SESSION){
 ?>
 <script>
@@ -17,7 +21,6 @@ if(!$_SESSION){
 window.location.href='../../entrar.php';
 </script>
 <?php
-exit(0);
 }
 $usuario1 = UsuarioDao::sqlCargar($_SESSION['usuario']->getRut());
 
@@ -29,94 +32,90 @@ session_destroy();
 window.location.href='../../entrar.php';
 </script>
 <?php
-exit(0);
 }
 
 // ---------------------------- IMAGENES 1, 2 Y 3 ---------------------------------------------
+$msgOut = "";
+
 $img1="null";
-if(!is_null($_FILES['img1']['size'])){
-    $img1= $_FILES['img1']['name'];
-    
-    $target_path = "../../assets/pages/img/posts/";
-    
-    $target_path = $target_path .$img1;
-
-    $tamano=$_FILES['img1']['size'];
-            
-    if($tamano==0){//si no se subio imagen, esto puede ser porque subio archivos de mas de 2MB de peso
-        ?>
-            <script>
-            alert('Ocurrió un error al subir la imagen\nDebe seleccionar una imagen válida.');
-            window.location.href='javascript:history.go(-1);';
-            </script>
-        <?php
-    }else{
-        if(!move_uploaded_file($_FILES['img1']['tmp_name'], $target_path)){ //si logra mover la imagen a la carpeta,
-          ?>
-              <script>
-                  alert('Ocurrió un error al subir la imagen\nDebe seleccionar una imagen válida.');
-                  window.location.href='javascript:history.go(-1);';
-              </script>
-          <?php
-        }
-    }
-}
 $img2="null";
-if(!is_null($_FILES['img2']['size'])){
-    $img2= $_FILES['img2']['name'];
-    
-    $target_path = "../../assets/pages/img/posts/";
-    
-    $target_path = $target_path .$img2;
-
-    $tamano=$_FILES['img2']['size'];
-            
-    if($tamano==0){//si no se subio imagen, esto puede ser porque subio archivos de mas de 2MB de peso
-        ?>
-            <script>
-            alert('Ocurrió un error al subir la imagen\nDebe seleccionar una imagen válida.');
-            window.location.href='javascript:history.go(-1);';
-            </script>
-        <?php
-    }else{
-        if(!move_uploaded_file($_FILES['img2']['tmp_name'], $target_path)){ //si logra mover la imagen a la carpeta,
-          ?>
-              <script>
-                  alert('Ocurrió un error al subir la imagen\nDebe seleccionar una imagen válida.');
-                  window.location.href='javascript:history.go(-1);';
-              </script>
-          <?php
-        }
-    }
-}
 $img3="null";
-if(!is_null($_FILES['img3']['size'])){
-    $img3= $_FILES['img3']['name'];
+$msOut = "";
+try{
     
-    $target_path = "../../assets/pages/img/posts/";
-    
-    $target_path = $target_path .$img3;
+    if(!is_null($_FILES['img1']['size'])){
+        $img1= $_FILES['img1']['name'];
+        
+        $target_path = "../../assets/pages/img/posts/";
+        
+        $target_path = $target_path .$img1;
 
-    $tamano=$_FILES['img3']['size'];
-            
-    if($tamano==0){//si no se subio imagen, esto puede ser porque subio archivos de mas de 2MB de peso
-        ?>
-            <script>
-            alert('Ocurrió un error al subir la imagen\nDebe seleccionar una imagen válida.');
-            window.location.href='javascript:history.go(-1);';
-            </script>
-        <?php
-    }else{
-        if(!move_uploaded_file($_FILES['img3']['tmp_name'], $target_path)){ //si logra mover la imagen a la carpeta,
-          ?>
-              <script>
-                  alert('Ocurrió un error al subir la imagen\nDebe seleccionar una imagen válida.');
-                  window.location.href='javascript:history.go(-1);';
-              </script>
-          <?php
+        $tamano=$_FILES['img1']['size'];
+                
+        if($tamano==0){//si no se subio imagen, esto puede ser porque subio archivos de mas de 2MB de peso
+            ?>
+                <script>
+                alert('Ocurrió un error al subir la imagen\nDebe seleccionar una imagen válida.');
+                //window.location.href='javascript:history.go(-1);';
+                </script>
+            <?php
+        }else{
+            if(!move_uploaded_file($_FILES['img1']['tmp_name'], $target_path)){ //si logra mover la imagen a la carpeta,
+            ?>
+                <script>
+                    alert('Ocurrió un error al subir la imagen\nDebe seleccionar una imagen válida.');
+                    //window.location.href='javascript:history.go(-1);';
+                </script>
+            <?php
+            }
         }
     }
+    
+    if(!is_null($_FILES['img2']['size'])){
+        $img2= $_FILES['img2']['name'];
+        
+        $target_path = "../../assets/pages/img/posts/";
+        
+        $target_path = $target_path .$img2;
+
+        $tamano=$_FILES['img2']['size'];
+                
+        if($tamano==0){//si no se subio imagen, esto puede ser porque subio archivos de mas de 2MB de peso
+            $img2="null";
+            $msOut = $msOut . "No se adjuntó la imagen 2.\n";
+        }else{
+            if(!move_uploaded_file($_FILES['img2']['tmp_name'], $target_path)){ //si logra mover la imagen a la carpeta,
+                $img2="null";
+                $msOut = $msOut . "No se pudo subir la imagen 2.\n";
+            }
+        }
+    }
+    
+    if(!is_null($_FILES['img3']['size'])){
+        $img3= $_FILES['img3']['name'];
+        
+        $target_path = "../../assets/pages/img/posts/";
+        
+        $target_path = $target_path .$img3;
+
+        $tamano=$_FILES['img3']['size'];
+                
+        if($tamano==0){//si no se subio imagen, esto puede ser porque subio archivos de mas de 2MB de peso
+            $img3="null";
+            $msOut = $msOut . "No se adjuntó la imagen 3\n";
+        }else{
+            if(!move_uploaded_file($_FILES['img3']['tmp_name'], $target_path)){ //si logra mover la imagen a la carpeta,
+                $img3="null";
+                $msOut = $msOut . "No se puso subir la imagen 3.\n";
+            }
+        }
+    }
+}catch(Exception $e){
+    $msOut = $msOut . "ERROR: ".$e.gettext."\n";
+}finally  {
+    $msOut = $msOut . "No se subieron algunas imágenes.\n";
 }
+
 // ---------------------------- IMAGENES 1, 2 Y 3 ---------------------------------------------
 
 
@@ -124,9 +123,19 @@ $contentHtml = "";
 
 if(isset($_POST['fecha'])){//será el path de la noticia
     $fecha=$_POST['fecha'];
-    $dia = substr($fecha,0,2);
-    $mes = substr($fecha,3,2);
-    $anio = substr($fecha,6,4);
+
+    
+    $dia = substr($fecha,8,2);
+    $mes = substr($fecha,5,2);
+    $anio = substr($fecha,0,4);
+
+    ?>
+                <script>
+                    alert('LARGO: <?php echo "".$largo;?> DIA:<?php echo $dia;?> MES: <?php echo $mes;?> AÑO: <?php echo $anio;?>');
+                    //window.location.href='javascript:history.go(-1);';
+                </script>
+            <?php
+
     $indexUrl = "http://www.softdirex.cl/";
 
     $contentHtml = $contentHtml . '
@@ -318,7 +327,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                 }
                 if(strcmp($img2, "null") != 0){
                     $contentHtml = $contentHtml.'
-                            <div class="item active">
+                            <div class="item">
                                 <img src=<?php echo $rootUri."/assets/pages/img/posts/'.$img2.'"; ?> alt="">
                             </div>
                     ';
@@ -327,7 +336,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                 }
                 if(strcmp($img3, "null") != 0){
                     $contentHtml = $contentHtml.'
-                            <div class="item active">
+                            <div class="item">
                                 <img src=<?php echo $rootUri."/assets/pages/img/posts/'.$img3.'"; ?> alt="">
                             </div>
                     ';
@@ -338,10 +347,9 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                     $video=$_POST['video'];
                     $contentHtml = $contentHtml.'
                     <div class="item">
-                                   
-                    <iframe src="'.$video.'" style="width:100%; border:0" allowfullscreen="" height="259"></iframe>
+                    <iframe width="640" height="360" src='.$video.' frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                     
-                  </div>
+                    </div>
                     ';
                 }else{
                     //no VIDEO CARRUSEL
@@ -369,7 +377,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                     //no Long Title <h2><a href="">
                 }
                 if(isset($_POST['introText'])){
-                    $introText=$_POST['introText'];
+                    $introText=nl2br($_POST['introText']);
                     $contentHtml = $contentHtml.'
                     <p>'.$introText.'</p>
                     ';
@@ -377,7 +385,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                     //no introText <p>
                 }
                 if(isset($_POST['commit'])){//commit <blockquote><p>
-                    $commit=$_POST['commit'];
+                    $commit=nl2br($_POST['commit']);
                     $contentHtml = $contentHtml.'
                     <blockquote>
                         <p>“'.$commit.'”.</p>
@@ -402,7 +410,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                     if(isset($_POST['lugarAutorCommit'])){//lugarAutorCommit <cite><small> excluyente
                         $lugarAutorCommit=$_POST['lugarAutorCommit'];
                         $contentHtml = $contentHtml.'
-                        <a href="" >'.$lugarAutorCommit.'</a></cite></small>
+                        <a href="" >'.$lugarAutorCommit.'</a></cite></small></blockquote>
                         ';
                     }else{
                         $contentHtml = $contentHtml.'
@@ -411,7 +419,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                         ';//no lugarAutorCommit <cite><small> 
                     }
                     if(isset($_POST['parraf1'])){//parraf1 <p> excluyente
-                        $parraf1=$_POST['parraf1'];
+                        $parraf1=nl2br($_POST['parraf1']);
                         $contentHtml = $contentHtml.'
                         <p>'.$parraf1.'</p>
                         ';
@@ -591,7 +599,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                             {
                                 ?>
                                 <script>
-                                alert('Archivo creado con exito.');
+                                alert('Archivo creado con exito.<?php echo $msOut;?>');
                                 </script>
                                 <?php
                             }
@@ -599,7 +607,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                             {
                                 ?>
                                 <script>
-                                alert('Ha habido un problema al crear el archivo.');
+                                alert('Ha habido un problema al crear el archivo.<?php echo $msOut;?>');
                                 </script>
                                 <?php
                             }
@@ -615,11 +623,18 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                         {
                             if(fwrite($archivo2, $redir))
                             {
+                                
+                                $enviar=1;
+                                if(isset($_POST['enviar'])){
+                                    $enviar=$_POST['enviar'];
+                                }
+                                saveBd($nombre_archivo, $titulo, $commit, $autor, $fecha, $categoria, $img1, $enviar)
                                 ?>
                                 <script>
                                 alert('Archivo de redireccionamiento creado con exito.');
                                 </script>
                                 <?php
+                                
                             }
                             else
                             {
@@ -631,17 +646,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                             }
                     
                             fclose($archivo2);
-                            $enviar=1;
-                            if(isset($_POST['enviar'])){
-                                $enviar=$_POST['enviar'];
-                            }
-                            ?>
-                            <script>
-                            alert('Se generará un registro en la base de datos.');
-                            window.location.href='admPublicacion-registrar.php?link='.$nombre_archivo.'&titulo='.$titulo.'&cita='.$commit.'&autor='.$autor.'&fecha='.$fecha.'&categoria='.$categoria.'&imagen='.img1.'&enviar='.$enviar;
-                            </script>
-                            <?php
-                            exit(0);
+                            
                         }
                     
                 }else{
@@ -663,10 +668,169 @@ if(isset($_POST['fecha'])){//será el path de la noticia
 ?>
 <script>
   alert('Error, no se pudo publicar la noticia.');
-  window.location.href='javascript:history.go(-1);';
+  //window.location.href='javascript:history.go(-1);';
 </script>
-<?php
+</body> 
+</html>
 
-exit(0);
+<?php
+function saveBd($link, $titulo, $cita, $autor, $fecha, $categoria, $imagen, $enviar){
+    $id = BlogDao::sqladdId();
+    $link = str_replace("../../", "https://www.softdirex.cl/", $link, $cont);
+    $largo = strlen($cita);
+    if($largo > 410){
+        $cita = substr($cita,0,400);
+        $cita = $cita."...";
+    }
+    $imagen = "assets/pages/img/posts/".$imagen;
+
+	try{
+		if(BlogDao::sqlExiste($link) == 0){
+			$blog=new Blog($id,$link, $titulo, $cita, $autor,$fecha,$imagen,$categoria,1);
+            echo 'Blog($id,$link, $titulo, $cita, $autor,$fecha,$imagen,$categoria,1)';
+            echo "Blog(".$id.",".$link.", ".$titulo.", ".$cita.", ".$autor.",".$fecha.",".$imagen.",".$categoria.",1)";
+			if(BlogDao::sqlInsert($blog) > 0){
+				if($enviar == 2){
+					$misRegistros = CorreosDao::sqlTodo();
+					$cont =0;
+					foreach ($misRegistros as $fila) {
+						$cont = $cont+enviarBoletin($link,$titulo,$fila['corr_correo']);
+					}
+					?>
+						<script>
+							alert('Se enviaron <?php echo $cont; ?> correos.');
+							//window.location.href='javascript:history.go(-1);';
+						</script>
+					<?php
+					
+				}else{
+					?>
+					<script>
+						alert('La publicación <?php echo $titulo;?> ha sido registrada.');
+						//window.location.href='javascript:history.go(-1);';
+					</script>
+					<?php
+					exit(0);
+				}
+			}else{
+			?>
+				<script>
+					alert('Ha ocurrido un error, los datos no se registraron correctamente.');
+					//window.location.href='javascript:history.go(-1);';
+				</script>
+			<?php
+			}
+			
+		}else{
+			?>
+				<script>
+					alert('Ha ocurrido un error, La publicación ya existe.');
+					//window.location.href='javascript:history.go(-1);';
+				</script>
+			<?php
+				
+		}
+			
+	}catch(Exception $e){
+		?>
+			<script>
+				alert('Ocurrió un error al intentar modificar los datos: <?php echo $e->getMessage(); ?>.');
+				//window.location.href='javascript:history.go(-1);';
+			</script>
+		<?php
+	}
+}
+
+function enviarBoletin($link,$nombre,$mail2)
+{
+	
+	$mail = new PHPMailer();
+	$mail->CharSet = 'UTF-8';
+	$mail->Host = "mx1.hostinger.es";
+	$mail->From = "no-reply@softdirex.cl";
+	$mail->FromName = "Softdirex";
+	$mail->Subject = "Newsletter Softdirex";
+	$mail->IsHTML(true);
+	$cont=0;
+	// HTML body
+
+	$mensaje = "<html>".
+		"<head>".
+		"<style type='text/css'>".
+		  ".boton_personalizado{".
+		    "text-decoration: none;".
+		    "padding: 10px;".
+		    "font-weight: 600;".
+		    "font-size: 20px;".
+		    "color: #ffffff;".
+		    "background-color: #ff8000;".
+		    "border-radius: 10px;".
+		    "border: 2px #0016b0;".
+		  "}".
+		   ".boton_personalizado:hover{".
+		    "color: #ff8000;".
+		    "background-color: #ffffff;".
+		  "}".
+		  ".bloque {".
+		  "background-color: #fafafa;".
+		  "margin: 1rem;".
+		  "padding: 1rem;".
+		  "text-align: center;".
+		"}".
+		"</style>".
+		"</head>".
+		"<body>".
+		"<div class='bloque' style='width:100%; height:auto;'>".
+		"<font color='Orange' face='verdana'>".
+		"<h1>Boletín informativo</h1>".
+		"<img align='center' src='https://www.softdirex.cl/assets/img/softdirex_logo.png'><br>".
+		"<br>".
+		"</font>".
+		"<font face='verdana'>".
+		  "Se encuentra disponible un nuevo contenido en nuestro sitio web:<br><br>".
+		  "<img align='center' src='https://www.softdirex.cl/imgMail/iphone_sdx.png'><br>".
+		  " <h3><a href='".$link."'>".$nombre."</a></h3>".
+		"</font>".
+		"<font color='Orange' face='verdana'>".
+		"<h3>Entérate de más:</h3>".
+		"</font>".
+		  "<a href='https://www.softdirex.cl/noticias.php' class='boton_personalizado'>Noticias</a><br><br><br>".
+		"<font color='Orange' face='verdana'>".
+		"<h3>Revise nuestros proyectos:</h3>".
+		"</font>".
+		  "<a href='https://www.softdirex.cl/portafolio.php' class='boton_personalizado'>Portafolio</a><br><br><br>".
+		  "<hr>".
+      		"Si no puedes acceder directamente al enlace,<br>copia el siguiente link y pégalo en la barra de direcciones de tu navegador para finalizar tu registro:<br>".
+      		"copiar: <b><a href='".$link."'>".$link."</a></b><br>".
+      		"<img align='center' src='https://www.softdirex.cl/imgMail/pegar.jpg'><br>".
+		  "<hr><h6>Copyright 2017 por Softdirex&nbsp;&nbsp;&nbsp;&nbsp;
+		        <img align='center' src='https://www.softdirex.cl/assets/img/footer-logo.png'>      ".
+		  "&nbsp;&nbsp;&nbsp;&nbsp;<a href='www.softdirex.cl' target='_blank' color='Orange'><b>Softdirex</b></a>".
+		" Un nuevo concepto para tu empresa</h6>".
+		"<hr>".
+		"<a href='https://www.softdirex.cl/mailDown.php?m=".$mail2."'>Darme de baja<a>".
+		"</div>".
+		"</body>".
+		  "</html>";
+	// Configurar Email
+	$mail->Body = $mensaje;
+	//$mail->AltBody = $text;
+	$mail->AddAddress($mail2, $mail2);
+	// Enviar el email
+	if(!$mail->Send()) {
+	?>
+			<script>
+				alert('Error al enviar a: <?php echo $mail; ?>.');
+			</script>
+	<?php
+	}else{
+		$cont++;
+	}
+	$mail->ClearAddresses();
+	return $cont;
+	//------------------------------------------------------------------------------------------------
+	
+	
+}
 
 ?>

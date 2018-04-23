@@ -8,11 +8,11 @@
 	// para darnos cuenta que nos da un error 
 	// o sea funciona
     // Usuario de conexión de la Base de Datos
-    private $stUsuario='u477207982_user'; //u477207982_user
+    private $stUsuario=''; //
     // clave de conexión de la Base de Datos
-    private $stClave='20075321818';
+    private $stClave='';
     // Nombre  de la Base de Datos
-    private $stBd='u477207982_sdx';//u477207982_sdx
+    private $stBd='';//
     // Constructor de BD
     public function BD()
     {

@@ -257,7 +257,7 @@ window.location.href='entrar.php';
             <div class="content-form-page">
               <div class="row">
                 <div class="col-md-7 col-sm-7">
-                  <form action="int/fn/parseHtml.php" class="form-horizontal" role="form" method="post">
+                  <form action="int/fn/parseHtml.php" enctype="multipart/form-data" class="form-horizontal" role="form" method="post">
                     <fieldset>
                       <legend>Nueva Publicación</legend>
                       <div class="form-group">
@@ -293,7 +293,7 @@ window.location.href='entrar.php';
                       <div class="form-group">
                       <label for="video" class="col-lg-4 control-label">Url del video (opcional)</label>
                         <div class="col-lg-8">
-                          <input type="text" class="form-control" id="video" name="video"  minlength="10" maxlength="100">
+                          <input type="text" class="form-control" id="video" name="video"  minlength="10" maxlength="100" readonly="readonly">
                         </div>
                       </div>
                       <div class="form-group">

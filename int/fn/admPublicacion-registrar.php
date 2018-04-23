@@ -75,7 +75,7 @@ if(isset($_GET['link'])){
 					?>
 						<script>
 							alert('Se enviaron <?php echo $cont; ?> correos.');
-							window.location.href='javascript:history.go(-1);';
+							//window.location.href='javascript:history.go(-1);';
 						</script>
 					<?php
 					
@@ -83,7 +83,7 @@ if(isset($_GET['link'])){
 					?>
 					<script>
 						alert('La publicación <?php echo $titulo;?> ha sido registrada.');
-						window.location.href='javascript:history.go(-1);';
+						//window.location.href='javascript:history.go(-1);';
 					</script>
 					<?php
 					exit(0);
@@ -92,7 +92,7 @@ if(isset($_GET['link'])){
 			?>
 				<script>
 					alert('Ha ocurrido un error, los datos no se registraron correctamente.');
-					window.location.href='javascript:history.go(-1);';
+					//window.location.href='javascript:history.go(-1);';
 				</script>
 			<?php
 			}
@@ -101,7 +101,7 @@ if(isset($_GET['link'])){
 			?>
 				<script>
 					alert('Ha ocurrido un error, La publicación ya existe.');
-					window.location.href='javascript:history.go(-1);';
+					//window.location.href='javascript:history.go(-1);';
 				</script>
 			<?php
 				
@@ -111,7 +111,7 @@ if(isset($_GET['link'])){
 		?>
 			<script>
 				alert('Ocurrió un error al intentar modificar los datos: <?php echo $e->getMessage(); ?>.');
-				window.location.href='javascript:history.go(-1);';
+				//window.location.href='javascript:history.go(-1);';
 			</script>
 		<?php
 	}
@@ -119,7 +119,7 @@ if(isset($_GET['link'])){
 ?>
 <script>
 alert('Ocurrió un error al registrar los datos: parametros vacíos.');
-window.location.href='javascript:history.go(-1);';
+//window.location.href='javascript:history.go(-1);';
 </script>
 <?php	
 }
