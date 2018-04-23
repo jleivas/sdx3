@@ -632,6 +632,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                                 ?>
                                 <script>
                                 alert('Archivo de redireccionamiento creado con exito.');
+                                window.location.href='javascript:history.go(-2);';
                                 </script>
                                 <?php
                                 
