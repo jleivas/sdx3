@@ -147,16 +147,14 @@ if(isset($_POST['fecha'])){//será el path de la noticia
     require_once($rootDir . "/int/dao/UsuarioDao.php");
     require_once($rootDir . "/int/dao/ProyectoDao.php");
     
+    $dominio= $_SERVER["HTTP_HOST"];
+    $url= "https://".$dominio .$_SERVER["REQUEST_URI"];
     $contenido = "null";
     $cat2=0;
-    
-    if(isset($_GET[\'contenido\'])){
-      $contenido = $_GET[\'contenido\'];
-      $blog = BlogDao::sqlCargar($contenido);
-      if($blog != null){
+    $blog = BlogDao::sqlCargar($url);
+    if($blog != null){
         $titulo=$blog->getTitulo();
         $cat2=$blog->getCategoria();
-      }
     }
     
     //INICIO Paginación
@@ -186,21 +184,25 @@ if(isset($_POST['fecha'])){//será el path de la noticia
       if(BlogDao::sqlContar($cat) > 0){
         $misRegistros = BlogDao::sqlCategoria($cat,$inicio,$TAMANO_PAGINA);
         $num_total_registros = BlogDao::sqlContar($cat);
-      }else{
-      ?>
-              <script>
-                alert(\'No existen contenidos en esta categoría,\\nvuelva a revisar nuevas publicaciones mas adelante.\');
-                window.location.href=\'noticias.php\';
-              </script>
-            <?php
       }
     }
     
-    $misRegistros2 = ComentarioDao::sqlListar("link");
+    
+    $dominio= $_SERVER["HTTP_HOST"];
+    $url= "https://".$dominio .$_SERVER["REQUEST_URI"];
+
+    if(BlogDao::sqlExiste($url) == 0){
+    ?>
+                <script>
+                alert(\'Esta publicación ha sido eliminada. <?php echo $url;?>\');
+                window.location.href=\'../../../noticias.php\';
+                </script>
+    <?php
+    }
+    $misRegistros2 = ComentarioDao::sqlListar($url);
     
     //calculo el total de páginas
     $total_paginas = ceil($num_total_registros / $TAMANO_PAGINA);
-    $url="noticias.php";
     
     $proy = ProyectoDao::sqlTodoLimit(0,8);
     
@@ -343,7 +345,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                 }else{
                     //no img3 CARRUSEL
                 }
-                if(isset($_POST['video'])){
+                /*if(isset($_POST['video'])){
                     $video=$_POST['video'];
                     $contentHtml = $contentHtml.'
                     <div class="item">
@@ -353,7 +355,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                     ';
                 }else{
                     //no VIDEO CARRUSEL
-                }
+                }*/
                 $contentHtml = $contentHtml .'
                             </div>
                             <!-- Carousel nav -->
@@ -453,7 +455,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                     ?>
                     <div class="media">                    
                       <a href="" class="pull-left">
-                      <img src=<?php echo $rootUri."/int/imgPerfil/".strtolower(substr($fila[\'com_autor\'], 0, 1))."jpg"; ?> alt="" class="media-object">
+                      <img src=<?php echo $rootUri."/int/imgPerfil/".strtolower(substr($fila[\'com_autor\'], 0, 1)).".jpg"; ?> alt="" class="media-object">
                       </a>
                       <div class="media-body">
                         <h4 class="media-heading"><?php echo $fila[\'com_autor\'] ?> <span><?php echo $fila[\'com_fecha\'] ?></span></h4>
@@ -469,11 +471,11 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                   <!--inicio formulario-->
                   <div class="post-comment padding-top-40">
                     <h3>Comenta</h3>
-                    <form role="form" action=<?php echo $rootUri."/int/fn/comentar.php" ?> method="post">
+                    <form role="form" action="../../../int/fn/comentar.php" method="post">
                       <div class="form-group">
                         <label>Nombre</label>
                         <input class="form-control" type="text" name="nombre" id="nombre" required="">
-                        <input type="hidden" name="link" id="link" value="<?php echo  $rootUri."/".$url ?>">
+                        <input type="hidden" name="link" id="link" value="https://www.softdirex.cl/'.$anio.'/'.$mes.'/'.$dia.'/'.$fileName.'">
                       </div>
 
                       <div class="form-group">
@@ -588,7 +590,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                         if(!is_dir($folder3)){ 
                         @mkdir($folder3, 0755); 
                         }
-
+                        
                         $nombre_archivo = $folder3."/".$fileName; 
  
                         $contenido = $contentHtml;
@@ -683,6 +685,7 @@ function saveBd($link, $titulo, $cita, $autor, $fecha, $categoria, $imagen, $env
         $cita = substr($cita,0,400);
         $cita = $cita."...";
     }
+    $cita = str_replace("'", "\"", $cita, $cont);
     $imagen = "assets/pages/img/posts/".$imagen;
 
 	try{

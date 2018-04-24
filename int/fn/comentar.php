@@ -7,15 +7,15 @@ date_default_timezone_set("Chile/Continental");
 $hoy = date('y-m-j');
 $ahora = date('H:i:s');
 
-$cadena = "";
+$link = "";
 if(isset($_POST['link'])){
-	$cadena = $_POST['link'];
-	$subcadena = "?"; 
+	$link = $_POST['link'];
+	//$subcadena = "?"; 
 	// localicamos en que posici�n se haya la $subcadena, en nuestro caso la posicion es "7"
-	$posicionsubcadena = strpos ($cadena, $subcadena); 
+	//$posicionsubcadena = strpos ($cadena, $subcadena); 
 	// eliminamos los caracteres desde $subcadena hacia la izq, y le sumamos 1 para borrar tambien el @ en este caso
 	
-	$link = substr ($cadena, 0,($posicionsubcadena)); 
+	//$link = substr ($cadena, 0,($posicionsubcadena)); 
 	$nombre = $_POST['nombre'];
 	$mail = $_POST['mail'];
 	$mensaje = $_POST['mensaje'];
@@ -41,7 +41,12 @@ if(isset($_POST['link'])){
 				<?php
 	}
 }
-
+?>
+					<script>
+						alert('No se recibieron datos del link:<?php echo $link; ?>');
+						window.location.href='javascript:history.go(-1);';
+					</script>
+<?php
 
 
 ?>
