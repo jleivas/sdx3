@@ -138,8 +138,14 @@ if(isset($_POST['fecha'])){//será el path de la noticia
 
     $indexUrl = "http://www.softdirex.cl/";
 
-    $contentHtml = $contentHtml . '
-    <?php $dominio = $_SERVER["HTTP_HOST"];
+	if(isset($_POST['categoria'])){
+        $categoria=$_POST['categoria'];//BD
+        if(isset($_POST['autor'])){
+            $autor=$_POST['autor'];
+            if(isset($_POST['titulo'])){
+                $titulo=$_POST['titulo'];
+                $contentHtml = $contentHtml.'
+                <?php $dominio = $_SERVER["HTTP_HOST"];
     $rootUri= "https://".$dominio;
     if (!isset($rootDir)) $rootDir = $_SERVER["DOCUMENT_ROOT"];
     require_once($rootDir . "/int/dao/BlogDao.php");
@@ -215,7 +221,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
     <!-- Head BEGIN -->
     <head>
       <meta charset="utf-8">
-      <title>Noticias - Softdirex</title>
+      <title>'.$titulo.'</title>
       <script>
     
       </script>
@@ -266,6 +272,16 @@ if(isset($_POST['fecha'])){//será el path de la noticia
     
     <!-- Body BEGIN -->
     <body class="corporate">
+    <!-- API FACEBOOK BEGIN -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = \'https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.12&appId=598270976878270&autoLogAppEvents=1\';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, \'script\', \'facebook-jssdk\'));</script>
+    <!-- API FACEBOOK END -->
         <!-- BEGIN header content -->
         <?php include("../../../complements/header.php") ?>
          <!--END header-->
@@ -294,13 +310,6 @@ if(isset($_POST['fecha'])){//será el path de la noticia
               <!-- BEGIN CONTENT -->
             <div class="col-md-12 col-sm-12">
               <!-- Inicio Contenido principal   ------------------------------------------------>
-    ';
-	if(isset($_POST['categoria'])){
-        $categoria=$_POST['categoria'];//BD
-        if(isset($_POST['autor'])){
-            $autor=$_POST['autor'];
-            if(isset($_POST['titulo'])){
-                $contentHtml = $contentHtml.'
                 <div id="containerRight">            
                     <div class="col-md-9 col-sm-9 blog-item">
                       <div class="blog-item-img">
@@ -310,7 +319,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                             <!-- Carousel items -->
                             <div class="carousel-inner">
                 ';
-                $titulo=$_POST['titulo'];
+                
                 $fileName = str_replace(" ", "-", $titulo, $cont);
                 $fileName = $fileName.".php";
                 if(strcmp($img1, "null") === 0){
@@ -440,6 +449,22 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                             <br><br><p> <a href="">Fuente:'.$fuente.'</a></p>
                             '; //no linkFuente <a>
                         }
+                        $contentHtml = $contentHtml . '<div>
+                        <a class="twitter-follow-button"
+                        href="https://twitter.com/softdirex">
+                        Follow @Softdirex</a>
+                        
+
+                        <a class="twitter-share-button"
+                        href="https://twitter.com/intent/tweet?text='.$longTitle.'">
+                        Tweet</a>
+
+                        <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: es_ES</script>
+                        <script type="IN/Share" data-url="https://www.softdirex.cl/'.$anio.'/'.$mes.'/'.$dia.'/'.$fileName.'"></script>
+                        
+                        <div class="fb-like" data-href="https://www.softdirex.cl/'.$anio.'/'.$mes.'/'.$dia.'/'.$fileName.'" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                        
+                        </div>';
                     }else{
                         //no fuente <p>
                     }
@@ -691,9 +716,7 @@ function saveBd($link, $titulo, $cita, $autor, $fecha, $categoria, $imagen, $env
 	try{
 		if(BlogDao::sqlExiste($link) == 0){
 			$blog=new Blog($id,$link, $titulo, $cita, $autor,$fecha,$imagen,$categoria,1);
-            echo 'Blog($id,$link, $titulo, $cita, $autor,$fecha,$imagen,$categoria,1)';
-            echo "Blog(".$id.",".$link.", ".$titulo.", ".$cita.", ".$autor.",".$fecha.",".$imagen.",".$categoria.",1)";
-			if(BlogDao::sqlInsert($blog) > 0){
+            if(BlogDao::sqlInsert($blog) > 0){
 				if($enviar == 2){
 					$misRegistros = CorreosDao::sqlTodo();
 					$cont =0;
@@ -703,24 +726,16 @@ function saveBd($link, $titulo, $cita, $autor, $fecha, $categoria, $imagen, $env
 					?>
 						<script>
 							alert('Se enviaron <?php echo $cont; ?> correos.');
-							//window.location.href='javascript:history.go(-1);';
+							return;
 						</script>
 					<?php
 					
-				}else{
-					?>
-					<script>
-						alert('La publicación <?php echo $titulo;?> ha sido registrada.');
-						//window.location.href='javascript:history.go(-1);';
-					</script>
-					<?php
-					exit(0);
 				}
 			}else{
 			?>
 				<script>
 					alert('Ha ocurrido un error, los datos no se registraron correctamente.');
-					//window.location.href='javascript:history.go(-1);';
+					return;
 				</script>
 			<?php
 			}
@@ -729,7 +744,7 @@ function saveBd($link, $titulo, $cita, $autor, $fecha, $categoria, $imagen, $env
 			?>
 				<script>
 					alert('Ha ocurrido un error, La publicación ya existe.');
-					//window.location.href='javascript:history.go(-1);';
+					return;
 				</script>
 			<?php
 				
@@ -740,6 +755,7 @@ function saveBd($link, $titulo, $cita, $autor, $fecha, $categoria, $imagen, $env
 			<script>
 				alert('Ocurrió un error al intentar modificar los datos: <?php echo $e->getMessage(); ?>.');
 				//window.location.href='javascript:history.go(-1);';
+                return;
 			</script>
 		<?php
 	}
