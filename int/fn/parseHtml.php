@@ -456,7 +456,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                         
 
                         <a class="twitter-share-button"
-                        href="https://twitter.com/intent/tweet?text='.$longTitle.'">
+                        href="https://twitter.com/intent/tweet?text='.$longTitle.' @softdirex">
                         Tweet</a>
 
                         <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: es_ES</script>
@@ -658,11 +658,11 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                                 saveBd($nombre_archivo, $titulo, $commit, $autor, $fecha, $categoria, $img1, $enviar)
                                 ?>
                                 <script>
-                                alert('Archivo de redireccionamiento creado con exito.');
+                                alert('Archivo creado con exito.');
                                 window.location.href='javascript:history.go(-2);';
                                 </script>
                                 <?php
-                                
+                                exit(0);
                             }
                             else
                             {
@@ -696,7 +696,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
 ?>
 <script>
   alert('Error, no se pudo publicar la noticia.');
-  //window.location.href='javascript:history.go(-1);';
+  window.location.href='javascript:history.go(-1);';
 </script>
 </body> 
 </html>
