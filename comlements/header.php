@@ -56,7 +56,7 @@ session_start();//carga la sesion
         <div class="header-navigation pull-right font-transform-inherit">
           <ul>
             <li class="dropdown active">
-              <a href=<?php echo $url."/registro.php"; ?>>
+              <a href=<?php echo $url;?>>
                 Inicio 
                 
               </a>
@@ -146,7 +146,7 @@ session_start();//carga la sesion
               </a>
             </li>
             <li class="dropdown">
-            <a href=<?php echo $url."/noticias.html"; ?>>
+            <a href=<?php echo $url."/noticias.php"; ?>>
                 Noticias 
                 
               </a>

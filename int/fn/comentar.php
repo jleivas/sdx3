@@ -25,6 +25,7 @@ if(isset($_POST['link'])){
 						window.location.href='javascript:history.go(-1);';
 					</script>
 				<?php
+				exit(0);
 	}else{
 				CorreosDao::sqlInsert($mail);
 				?>
@@ -33,6 +34,7 @@ if(isset($_POST['link'])){
 						window.location.href='javascript:history.go(-1);';
 					</script>
 				<?php
+				exit(0);
 	}
 }
 ?>

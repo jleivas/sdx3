@@ -120,6 +120,7 @@ try{
 
 
 $contentHtml = "";
+$contentImg = "";
 
 if(isset($_POST['fecha'])){//será el path de la noticia
     $fecha=$_POST['fecha'];
@@ -144,7 +145,48 @@ if(isset($_POST['fecha'])){//será el path de la noticia
             $autor=$_POST['autor'];
             if(isset($_POST['titulo'])){
                 $titulo=$_POST['titulo'];
-                $contentHtml = $contentHtml.'
+                
+                
+                $fileName = str_replace(" ", "-", $titulo, $cont);
+                $fileName = eliminar_tildes($fileName);
+                $fileName = strtolower($fileName);
+                $fileName = $fileName.".php";
+                if(strcmp($img1, "null") === 0){
+                    $img1 = "default.jpg";
+                    //no img1 CARRUSEL
+                }
+                if(strcmp($img2, "null") != 0){
+                    $contentImg = $contentImg.'
+                            <div class="item">
+                                <img src=<?php echo $rootUri."/assets/pages/img/posts/'.$img2.'"; ?> alt="">
+                            </div>
+                    ';
+                }else{
+                    //no img2 CARRUSEL
+                }
+                if(strcmp($img3, "null") != 0){
+                    $contentImg = $contentImg.'
+                            <div class="item">
+                                <img src=<?php echo $rootUri."/assets/pages/img/posts/'.$img3.'"; ?> alt="">
+                            </div>
+                    ';
+                }else{
+                    //no img3 CARRUSEL
+                }
+                /*if(isset($_POST['video'])){
+                    $video=$_POST['video'];
+                    $contentImg = $contentImg.'
+                    <div class="item">
+                    <iframe width="640" height="360" src='.$video.' frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    
+                    </div>
+                    ';
+                }else{
+                    //no VIDEO CARRUSEL
+                }*/
+                if(isset($_POST['longTitle'])){
+                    $longTitle=$_POST['longTitle'];
+                    $contentHtml = $contentHtml.'
                 <?php $dominio = $_SERVER["HTTP_HOST"];
     $rootUri= "https://".$dominio;
     if (!isset($rootDir)) $rootDir = $_SERVER["DOCUMENT_ROOT"];
@@ -233,11 +275,11 @@ if(isset($_POST['fecha'])){//será el path de la noticia
       <meta content="softdirex" name="author">
     
       <meta property="og:site_name" content="Softdirex">
-      <meta property="og:title" content="Noticias">
-      <meta property="og:description" content="Suscríbete para ser el primero en recibir nuevos contenidos.">
+      <meta property="og:title" content="'.$titulo.'">
+      <meta property="og:description" content="'.$longTitle.'">
       <meta property="og:type" content="website">
-      <meta property="og:image" content="https://www.softdirex.cl/imgMail/iphone_sdx.png"><!-- link to image for socio -->
-      <meta property="og:url" content="https://softdirex.cl/noticias.php">
+      <meta property="og:image" content="https://www.softdirex.cl/assets/pages/img/posts/'.$img1.'"><!-- link to image for socio -->
+      <meta property="og:url" content="https://www.softdirex.cl/'.$anio.'/'.$mes.'/'.$dia.'/'.$fileName.'">
     
       <link rel="shortcut icon" href=<?php $rootUri."favicon.ico"; ?>>
     
@@ -318,54 +360,10 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                           <div id="myCarousel" class="carousel slide">
                             <!-- Carousel items -->
                             <div class="carousel-inner">
-                ';
-                
-                $fileName = str_replace(" ", "-", $titulo, $cont);
-                $fileName = $fileName.".php";
-                if(strcmp($img1, "null") === 0){
-                    $img1 = "default.jpg";
-                    $contentHtml = $contentHtml.'
-                            <div class="item active">
-                                <img src=<?php echo $rootUri."/assets/pages/img/posts/default.jpg"; ?> alt="">
-                            </div>
-                    ';//no img1 CARRUSEL
-                }else{
-                    $contentHtml = $contentHtml.'
                             <div class="item active">
                                 <img src=<?php echo $rootUri."/assets/pages/img/posts/'.$img1.'"; ?> alt="">
                             </div>
-                    ';
-                }
-                if(strcmp($img2, "null") != 0){
-                    $contentHtml = $contentHtml.'
-                            <div class="item">
-                                <img src=<?php echo $rootUri."/assets/pages/img/posts/'.$img2.'"; ?> alt="">
-                            </div>
-                    ';
-                }else{
-                    //no img2 CARRUSEL
-                }
-                if(strcmp($img3, "null") != 0){
-                    $contentHtml = $contentHtml.'
-                            <div class="item">
-                                <img src=<?php echo $rootUri."/assets/pages/img/posts/'.$img3.'"; ?> alt="">
-                            </div>
-                    ';
-                }else{
-                    //no img3 CARRUSEL
-                }
-                /*if(isset($_POST['video'])){
-                    $video=$_POST['video'];
-                    $contentHtml = $contentHtml.'
-                    <div class="item">
-                    <iframe width="640" height="360" src='.$video.' frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    
-                    </div>
-                    ';
-                }else{
-                    //no VIDEO CARRUSEL
-                }*/
-                $contentHtml = $contentHtml .'
+                    '.$contentImg .'
                             </div>
                             <!-- Carousel nav -->
                             <a class="carousel-control left" href="#myCarousel" data-slide="prev">
@@ -378,10 +376,6 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                         </div>
                         <!-- END CAROUSEL -->             
                       </div>
-                ';
-                if(isset($_POST['longTitle'])){
-                    $longTitle=$_POST['longTitle'];
-                    $contentHtml = $contentHtml.'
                     <h2><a href="">'.$longTitle.'</a></h2>
                     ';
                 }else{
@@ -439,17 +433,24 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                     }
                     if(isset($_POST['fuente'])){//fuente <p> excluyente
                         $fuente=$_POST['fuente'];
-                        if(isset($_POST['linkFuente'])){//linkFuente <a> excluyente
-                            $linkFuente=$_POST['linkFuente'];
-                            $contentHtml = $contentHtml.'
-                            <br><br><p> <a href="'.$linkFuente.'" target="_blank">Fuente:'.$fuente.'</a></p>
-                            ';
-                        }else{
-                            $contentHtml = $contentHtml.'
-                            <br><br><p> <a href="">Fuente:'.$fuente.'</a></p>
-                            '; //no linkFuente <a>
+                        if(strlen($fuente) > 5){
+                            if(isset($_POST['linkFuente'])){//linkFuente <a> excluyente
+                                $linkFuente=$_POST['linkFuente'];
+                                $contentHtml = $contentHtml.'
+                                <br><br><p> <a href="'.$linkFuente.'" target="_blank">Fuente:'.$fuente.'</a></p>
+                                ';
+                            }else{
+                                $contentHtml = $contentHtml.'
+                                <br><br><p> Fuente:<a href="">'.$fuente.'</a></p>
+                                '; //no linkFuente <a>
+                            }
                         }
-                        $contentHtml = $contentHtml . '<div>
+                    }else{
+                        $contentHtml = $contentHtml.'
+                            <br><br>
+                            ';//no fuente <p>
+                    }
+                    $contentHtml = $contentHtml . '<div>
                         <a class="twitter-follow-button"
                         href="https://twitter.com/softdirex">
                         Follow @Softdirex</a>
@@ -464,11 +465,9 @@ if(isset($_POST['fecha'])){//será el path de la noticia
                         
                         <div class="fb-like" data-href="https://www.softdirex.cl/'.$anio.'/'.$mes.'/'.$dia.'/'.$fileName.'" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
                         
-                        </div>';
-                    }else{
-                        //no fuente <p>
-                    }
-                    $contentHtml = $contentHtml.'
+                        <a href="https://api.whatsapp.com/send?text=Me%20gustaría%20compartirte%20esta%20info%20https://www.softdirex.cl/'.$anio.'/'.$mes.'/'.$dia.'/'.$fileName.'" style="border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px; display: inline-block; text-decoration: none; text-align: center; font-size: x-small; padding: 4px; color: white; background-color: green;" target="_blank"><i class="fa fa-whatsapp"></i>Compartir</a>
+
+                        </div>
                     <ul class="blog-info">
                     <li><i class="fa fa-user"></i> '.$autor.'</li>
                     <li><i class="fa fa-calendar"></i>'.$fecha.'</li>
@@ -534,7 +533,7 @@ if(isset($_POST['fecha'])){//será el path de la noticia
           <div class="col-md-3 col-sm-3 blog-sidebar">
             <div class="row">
               <!-- CATEGORIES START -->
-                  
+              
                   <!-- END BLOG PHOTOS STREAM -->
 
                   <!-- BEGIN BLOG TAGS 
@@ -851,6 +850,44 @@ function enviarBoletin($link,$nombre,$mail2)
 	//------------------------------------------------------------------------------------------------
 	
 	
+}
+
+function eliminar_tildes($cadena){
+ 
+    //Codificamos la cadena en formato utf8 en caso de que nos de errores
+    $cadena = utf8_encode($cadena);
+ 
+    //Ahora reemplazamos las letras
+    $cadena = str_replace(
+        array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+        array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
+        $cadena
+    );
+ 
+    $cadena = str_replace(
+        array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+        array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
+        $cadena );
+ 
+    $cadena = str_replace(
+        array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+        array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
+        $cadena );
+ 
+    $cadena = str_replace(
+        array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+        array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+        $cadena );
+ 
+    $cadena = str_replace(
+        array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+        array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
+        $cadena );
+ 
+        $cadena = preg_replace("/[^a-zA-Z0-9\_\-]+/", "", $cadena);
+
+ 
+    return $cadena;
 }
 
 ?>

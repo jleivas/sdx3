@@ -56,7 +56,7 @@ $ultimas = BlogDao:: sqlTodoLimit(0,6);
                   <!-- CATEGORIES END -->
 
                   <!-- BEGIN RECENT NEWS -->                            
-                  <h2>Ultimas publicaciones</h2>
+                  <h2>Últimas publicaciones</h2>
                   <div class="recent-news margin-bottom-10">
                     <?php
                     foreach ($ultimas as $temp) {
@@ -66,7 +66,7 @@ $ultimas = BlogDao:: sqlTodoLimit(0,6);
                         <img class="img-responsive" alt="" src="<?php echo "../../../".$temp['blo_imagen'] ?>">                        
                       </div>
                       <div class="col-md-9 recent-news-inner">
-                        <h3><a href="noticias.php?contenido=<?php echo $temp['blo_link']; ?>"><?php echo $temp['blo_titulo'] ?></a></h3>
+                        <h3><a href="<?php echo $temp['blo_link']; ?>"><?php echo $temp['blo_titulo'] ?></a></h3>
                         <p>Autor: <?php echo $temp['blo_autor'] ?></p>
                       </div>                        
                     </div>

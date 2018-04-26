@@ -35,6 +35,7 @@ else {
 
 
 //FIN Paginación
+$ultimas = BlogDao::sqlTodoLimit(0,4);
 $misRegistros = BlogDao::sqlTodoLimit($inicio,$TAMANO_PAGINA);
 $num_total_registros = BlogDao::sqlContarTodo();
 $cat = 0;
@@ -56,7 +57,7 @@ if(isset($_GET['cat'])){
 
 //calculo el total de páginas
 $total_paginas = ceil($num_total_registros / $TAMANO_PAGINA);
-$url="noticias.php";
+$url7="noticias.php";
 
 $proy = ProyectoDao::sqlTodoLimit(0,8);
 
@@ -129,7 +130,7 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
 <body class="corporate">
     <!-- BEGIN header content -->
     <?php include("complements/header.php") ?>
-    <!-- END header-->
+    <!-- Header END -->
 
     <!-- Inicio Contenido 1 ------------------------------------------------------------------------>
     <div class="main">
@@ -155,106 +156,72 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
           <!-- BEGIN CONTENT -->
         <div class="col-md-12 col-sm-12">
           <!-- Inicio Contenido principal   ------------------------------------------------>
-          <div id="containerRight">            
-                <div class="col-md-9 col-sm-9 blog-item">
-                  <div class="blog-item-img">
-                    <!-- BEGIN CAROUSEL -->            
-                    <div class="front-carousel">
-                      <div id="myCarousel" class="carousel slide">
-                        <!-- Carousel items -->
-                        <div class="carousel-inner">
-                          <div class="item">
-                            <img src="assets/pages/img/posts/img11.png" alt="">
-                          </div>
-                          <!--<div class="item">
-                               
-                            <iframe src="http://player.vimeo.com/video/56974716?portrait=0" style="width:100%; border:0" allowfullscreen="" height="259"></iframe>
-                            
-                          </div>-->
-                          <div class="item active">
-                            <img src="assets/pages/img/posts/img12.jpg" alt="">
-                          </div>
-                          <div class="item">
-                            <img src="assets/pages/img/posts/img13.jpg" alt="">
-                          </div>
-                        </div>
-                        <!-- Carousel nav -->
-                        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
-                          <i class="fa fa-angle-left"></i>
-                        </a>
-                        <a class="carousel-control right" href="#myCarousel" data-slide="next">
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>                
+          <div id="containerRight">
+          <div class="col-md-9 col-sm-9 blog-posts">
+            <div class="row">
+                <!-- BEGIN LEFT SIDEBAR -->            
+                <div class="col-md-11 col-sm-11 blog-posts">
+                  <!-- Inicio noticia -->
+                  <?php
+                  foreach ($misRegistros as $fila) {
+                  ?>
+                  <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                      <img class="img-responsive" alt="" src="<?php echo "../../../".$fila['blo_imagen']; ?>">
                     </div>
-                    <!-- END CAROUSEL -->             
-                  </div>
-                  <h2><a href="">Un software empresarial puede mejorar un negocio</a></h2>
-                  <p>Existen muchos mitos con respecto a la implementación de sistemas de gestión empresarial por la que muchas PYMES no se atreven a adquirir algún software para sus compañías.</p>
-                  <p>Según un informe presentado por una empresa colombiana Consensus, en muchos casos las empresas que implementen un software de gestión empresarial tienen hasta un 70% de probabilidad de incrementar sus ingresos.</p>
-                  <blockquote>
-                    <p>“Adaptarse a la tecnología y hacer uso de las nuevas herramientas que ofrece el mercado se ha convertido en una obligación y está al alcance de todas las empresas sin importar su tamaño o sector”, es uno de los argumentos de dicho informe, es “indispensable pensar creativamente a través del uso de la tecnología, pues aunque resulte un reto para muchas, resulta más eficiente a nivel económico y logra impactar en un mercado más amplio en el que cualquier empresa tiene como objetivo crecer”.</p>
-                    <small>Consultor informático en Bogotá, Colombia 
-                   <cite title="Consultor informático en Bogotá, Colombia"><a href="http://www.consensussa.com/index.php/es/" target="_blank">Concensus</a></cite></small>
-                  </blockquote> 
-                  <p>Las conclusiones de Consensus apuntan a que existen algunos mitos en la sociedad que impiden que muchas PyMEs se atrevan a adquirir un Software de Gestión Empresarial en sus compañías: muchos piensan que se trata de una herramienta compleja; otros creen que implica un alto costo implementarlo; algunos aseguran que es un proceso demorado y otra gran cantidad afirma que solo puede ser manejado por grandes empresas.</p>
-                  <p>
-                    Es fundamental que los empresarios conozcan a profundidad cuáles son los grandes beneficios que trae consigo la adquisición de herramientas para que pierdan el miedo y se animen a implementarla en sus negocios, según Consensus.</p>
-
-<p>Para que las PyMES comiencen su proceso de implementación,  se recomienda que inicialmente estudien su empresa y su entorno, es decir, que tengan “espíritu empresarial”, luego que comiencen con algo sencillo y dividan el proyecto en etapas o fases, una vez hecho esto es recomendable auditar el logro de los objetivos planeados, de acuerdo con Benjamín Archila, Gerente General de Consensus.</p>
-
-<p>Muchas compañías que deciden implementar un Software tipo ERP, “encuentran en ella la herramienta que estaban buscando, pues no solo les permite identificar la rentabilidad de sus centros de costos, sino que refleja, de manera inmediata, la trazabilidad de sus proyectos en ejecución y los que ha han desarrollado”. Algunos de los módulos que las empresas pueden implementar son: Módulo de Gestión, CRM, Recursos Humanos, Financiero, Compras y Ventas.
-                  </p>               
-                  
-                  <ul class="blog-info">
-                    <li><i class="fa fa-user"></i> Jorge Leiva CEO Softdirex</li>
-                    <li><i class="fa fa-calendar"></i>27-10-2017</li>
-                  </ul>
-
-                  <h2>Comentarios</h2>
-                  <div class="comments">
-                    <?php
-                    foreach ($misRegistros as $fila) {
-                    ?>
-                    <div class="media">                    
-                      <a href="" class="pull-left">
-                      <img src="../../int/imgPerfil/<?php echo  strtolower(substr($fila['com_autor'], 0, 1));?>.jpg" alt="" class="media-object">
-                      </a>
-                      <div class="media-body">
-                        <h4 class="media-heading"><?php echo $fila['com_autor'] ?> <span><?php echo $fila['com_fecha'] ?></span></h4>
-                        <p><?php echo $fila['com_mensaje'] ?></p>  
-                      </div>
+                    <div class="col-md-8 col-sm-8">
+                      <h2><a href="<?php echo $fila['blo_link']; ?>"><?php echo $fila['blo_titulo'];?></a></h2>
+                      <ul class="blog-info">
+                        <li><i class="fa fa-calendar"></i> <?php echo $fila['blo_fecha'];?></li>
+                        <li><i class="fa fa-comments"></i> <?php echo ComentarioDao::sqlContar($fila['blo_link']);?></li>
+                        <li><i class="fa fa-comment"></i> <?php echo $fila['blo_autor'];?></li>
+                      </ul>
+                      <p><?php echo $fila['blo_cita'];?></p>
+                      <a href="<?php echo $fila['blo_link']; ?>" class="more">Seguir leyendo... <i class="icon-angle-right"></i></a>
                     </div>
-                    <?php
-                    }
-                    ?>
-                    <!--end media-->
                   </div>
-
-                  <!--inicio formulario-->
-                  <div class="post-comment padding-top-40">
-                    <h3>Comenta</h3>
-                    <form role="form" action="int/fn/comentar.php" method="post">
-                      <div class="form-group">
-                        <label>Nombre</label>
-                        <input class="form-control" type="text" name="nombre" id="nombre" required="">
-                        <input type="hidden" name="link" id="link" value="<?php echo $url ?>">
-                      </div>
-
-                      <div class="form-group">
-                        <label>Email <span class="color-red">*</span></label>
-                        <input class="form-control" type="email" name="mail" id="mail" required="">
-                      </div>
-
-                      <div class="form-group">
-                        <label>Mensaje</label>
-                        <textarea class="form-control" rows="8" name="mensaje" id="mensaje" required></textarea>
-                      </div>
-                      <p><button class="btn btn-primary" type="submit">Comentar</button></p>
-                    </form>
-                  </div> 
-                  <!--fin formulario-->
-
+                  <hr class="blog-post-sep">
+                  <?php
+                  }
+                  ?>
+                  <!-- Fin noticia -->
+                  <ul class="pagination">
+                  <?php
+                  if ($total_paginas > 1) {
+                     if ($pagina != 1)
+                        if($cat==0){
+                          echo '<li><a href="'.$url7.'?pagina='.($pagina-1).'">Anterior</a></li>';
+                        }else{
+                          echo '<li><a href="'.$url7.'?pagina='.($pagina-1).'&cat='.$cat.'">Anterior</a></li>';
+                        }
+                        for ($i=1;$i<=$total_paginas;$i++) {
+                           if ($pagina == $i)
+                              //si muestro el índice de la página actual, no coloco enlace
+                            if($cat==0){
+                              echo '<li class="active"><a href="'.$url7.'?pagina='.$pagina.'">'.$pagina.'</a></li>';
+                            }else{
+                              echo '<li class="active"><a href="'.$url7.'?pagina='.$pagina.'&cat='.$cat.'">'.$pagina.'</a></li>';
+                            }
+                           else{
+                              if($cat==0){
+                              //si el índice no corresponde con la página mostrada actualmente,
+                              //coloco el enlace para ir a esa página
+                                echo '<li><a href="'.$url7.'?pagina='.$i.'">'.$i.'</a></li>';
+                              }else{
+                                echo '<li><a href="'.$url7.'?pagina='.$i.'&cat='.$cat.'">'.$i.'</a></li>';
+                              }
+                            }
+                        }
+                        if ($pagina != $total_paginas){
+                          if($cat==0){
+                            echo '<li><a href="'.$url7.'?pagina='.($pagina+1).'">Siguiente</a></li>';
+                          }else{
+                            echo '<li><a href="'.$url7.'?pagina='.($pagina+1).'&cat='.$cat.'">Siguiente</a></li>';
+                          }
+                         }
+                  }
+                  ?>
+                  </ul>               
                 </div>
                 <!-- END LEFT SIDEBAR -->
                 <!-- BEGIN RIGHT SIDEBAR -->            
@@ -272,7 +239,7 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
           <div class="col-md-3 col-sm-3 blog-sidebar">
             <div class="row">
               <!-- CATEGORIES START -->
-                  <?php include("complements/navbarNoticias.php") ?>
+              <?php include("complements/navbarNoticias.php") ?>
                   <!-- END BLOG PHOTOS STREAM -->
 
                   <!-- BEGIN BLOG TAGS 
@@ -299,38 +266,80 @@ $proy = ProyectoDao::sqlTodoLimit(0,8);
 
         
     <!-- Fin Contenido 1 ------------------------------------------------------------------------>
-    <?php
-    $path = "2018/4/15";
-    if (!file_exists($path)) {
-      mkdir($path, 0777, true);
-  }
-    $fp=fopen($path.'/filename4.php','w');
-    $contentHtml = '
-    <?php
-if (!isset($rootDir)) $rootDir = $_SERVER[\'DOCUMENT_ROOT\'];
-require_once($rootDir . "/int/dao/BlogDao.php");
-require_once($rootDir . "/int/dao/ComentarioDao.php");
-require_once($rootDir . "/int/dao/UsuarioDao.php");
-require_once($rootDir . "/int/dao/ProyectoDao.php");
+    <!-- BEGIN PRE-FOOTER -->
+    <div class="pre-footer">
+      <div class="container">
+        <div class="row">
+          <!-- BEGIN BOTTOM ABOUT BLOCK -->
+          <div class="col-md-4 col-sm-6 pre-footer-col">
+            <h2>Nosotros</h2>
+            <p>Somos una empresa dedicada a ofrecer servicios informáticos para un mejor desarrollo de sus proyectos o negocios, ofrecemos recursos que aseguran una optimización tecnológica y acorde a sus necesidades.</p>
 
-$contenido = "null";
-$cat2=0;
+          </div>
+          <!-- END BOTTOM ABOUT BLOCK -->
 
-if(isset($_GET[\'contenido\'])){
-  $contenido = $_GET[\'contenido\'];
-  $blog = BlogDao::sqlCargar($contenido);
-  if($blog != null){
-    $titulo=$blog\->getTitulo();
-    $cat2=$blog\->getCategoria();
-  }
-}
-    ';
-    fwrite($fp, $contentHtml);
-    fclose($fp);
-    ?>
+          <!-- BEGIN BOTTOM CONTACTS -->
+          <div class="col-md-4 col-sm-6 pre-footer-col">
+            <h2>Datos de contacto</h2>
+            <address class="margin-bottom-40">
+              Camino Uno Norte #130 - D Colonia Kennedy<br>
+              Santiago, Chile<br>
+              Celular: 9 9867 2957<br>
+              Email: <a href="mailto:contacto@softdirex.cl">contacto@softdirex.cl</a><br>
+              Skype: <a href="https://join.skype.com/BzouJnZA7VBn">Consultas Softdirex</a>
+            </address>
+
+            <div class="pre-footer-subscribe-box pre-footer-subscribe-box-vertical">
+              <h2>Boletín</h2>
+              <p>Subscribete a nuestro boletin y recibe noticias de nuestros servicios</p>
+              <form action="subscribir.php" method="post">
+                <div class="input-group">
+                  <input type="text" placeholder="tuemail@mail.com" class="form-control" name="mail" id="mail" required="">
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit">Subscribirse</button>
+                  </span>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- END BOTTOM CONTACTS -->
+
+          <!-- BEGIN TWITTER BLOCK --> 
+          <div class="col-md-4 col-sm-6 pre-footer-col">
+            <h2 class="margin-bottom-0">Ultimos Tweets</h2>
+            <a class="twitter-timeline" data-lang="es" data-dnt="true" data-tweet-limit="2" data-theme="dark" data-link-color="#57C8EB" href="https://twitter.com/softdirex?ref_src=twsrc%5Etfw">Tweets by softdirex</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </div>
+          <!-- END TWITTER BLOCK -->
+        </div>
+      </div>
+    </div>
+    <!-- END PRE-FOOTER -->
 
     <!-- BEGIN FOOTER -->
-    <?php include("complements/footer.php") ?>
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <!-- BEGIN COPYRIGHT -->
+          <div class="col-md-4 col-sm-4 padding-top-10">
+            2017 © Softdirex. Todos los derechos reservados. <!--<a href="javascript:;">Privacy Policy</a> | <a href="javascript:;">Terms of Service</a>-->
+          </div>
+          <!-- END COPYRIGHT -->
+          <!-- BEGIN PAYMENTS -->
+          <div class="col-md-4 col-sm-4">
+            <ul class="social-footer list-unstyled list-inline pull-right">
+              <li><a href="http://fb.me/Softdirex" target="_blank"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="https://www.linkedin.com/company-beta/25005966/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+              <li><a href="https://twitter.com/softdirex" target="_blank"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="https://join.skype.com/BzouJnZA7VBn" target="_blank"><i class="fa fa-skype"></i></a></li>
+              <li><a href="https://www.youtube.com/channel/UC-yzBUF_mKFUgQCEp5wmadg" target="_blank"><i class="fa fa-youtube"></i></a></li>
+            </ul> 
+          </div>
+          <!-- END PAYMENTS -->
+          <!-- BEGIN POWERED -->
+          <!-- END POWERED -->
+        </div>
+      </div>
+    </div>
     <!-- END FOOTER -->
 
     <!-- Load javascripts at bottom, this will reduce page load time -->
