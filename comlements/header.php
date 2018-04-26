@@ -78,7 +78,7 @@ session_start();//carga la sesion
               </ul>
             </li>
             <li class="dropdown">
-              <a href="portafolio.php">
+              <a href=<?php echo $url."/portafolio.php" ?>>
                 Portafolio 
                 
               </a>
