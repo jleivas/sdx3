@@ -28,16 +28,15 @@ $proyectos=ProyectoDao::sqlTodo();
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <meta name="description" content="Somos una empresa dedicada a ofrecer servicios informáticos: Sitios web, Aplicaciones web, Servicio técnico, Desarrollo de software etc. Revise nuestros servicios aquí.">
-  <meta content="sitios web, aplicaciones web, desarrollo de software, programas para empresas, sistemas informaticos, programadores, desarrollo de aplicaciones, desarrollo de sitios web, paginas web, crear pagina web, comprar pagina web, crear un sitio web, crear sitio web, diseño de sitios web, diseño de aplicaciones, aplicaciones moviles, crear un programa, programa para empresas" name="keywords">
+  <meta name="description" content="Optics es un software de escritorio que facilita la gestión de las ópticas, genera reportes y mantiene la información ordenada y respaldada." name="keywords">
   <meta content="softdirex" name="author">
 
-  <meta property="og:site_name" content="-CUSTOMER VALUE-">
-  <meta property="og:title" content="-CUSTOMER VALUE-">
-  <meta property="og:description" content="-CUSTOMER VALUE-">
+  <meta property="og:site_name" content="Optics 4">
+  <meta property="og:title" content="DCS Optics 4">
+  <meta property="og:description" content="Optics es un software de escritorio que facilita la gestión de las ópticas, genera reportes y mantiene la información ordenada y respaldada.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="-CUSTOMER VALUE-"><!-- link to image for socio -->
-  <meta property="og:url" content="-CUSTOMER VALUE-">
+  <meta property="og:url" content="https://softdirex.cl/portafolio/optics4.php">
 
   <link rel="shortcut icon" href="../favicon.ico">
 
@@ -223,31 +222,31 @@ $proyectos=ProyectoDao::sqlTodo();
                       <div class="item active">
                         <img alt="" src="<?php echo "../".$proy->getImagen();?>">
                         <div class="carousel-caption">
-                          <p>Pantalla principal del sistema en el cual se registran los clientes y recetas.</p>
+                          <p>Nueva pantalla principal de acceso.</p>
                         </div>
                       </div>
                       <div class="item">
-                        <img alt="" src="../assets/pages/img/works/img5.jpg">
+                        <img alt="" src="../assets/pages/img/works/imgopt1.png">
                         <div class="carousel-caption">
-                          <p>En esta ventana se listan las recetas registradas en el sistema.</p>
+                          <p>Optics es un software para ópticas rápido y genera reportes en Word, Pdf o Excel.</p>
                         </div>
                       </div>
                       <div class="item">
-                        <img alt="" src="../assets/pages/img/works/img6.jpg">
+                        <img alt="" src="../assets/pages/img/works/imgopt2.png">
                         <div class="carousel-caption">
-                          <p>Sólo el administrador de inventario tiene acceso con una clave de seguridad.</p>
+                          <p>Nuevas características e interfaz moderna.</p>
                         </div>
                       </div>
                       <div class="item">
-                        <img alt="" src="../assets/pages/img/works/img7.jpg">
+                        <img alt="" src="../assets/pages/img/works/imgopt3.png">
                         <div class="carousel-caption">
-                          <p>Sistema centralizado en un solo computador al cual se pueden conectar los equipos que sean necesarios.</p>
+                          <p>Sincronización en tiempo real con base de datos remota.</p>
                         </div>
                       </div>
                       <div class="item">
-                        <img alt="" src="../assets/pages/img/works/img8.jpg">
+                        <img alt="" src="../assets/pages/img/works/imgopt5.png">
                         <div class="carousel-caption">
-                          <p>Optidata es el sistema para tu óptica.</p>
+                          <p>Mayor capacidad de conexión simultánea con otros equipos sin depender 100% de la red.</p>
                         </div>
                       </div>
                     </div>
@@ -260,21 +259,25 @@ $proyectos=ProyectoDao::sqlTodo();
                     </a>
                   </div> 
                   <hr>
-                  <div align="center"><iframe width="450" height="350" src="https://www.youtube.com/embed/iQMCxvHbnTw" frameborder="0" allowfullscreen></iframe></div>              
+                  <!--<div align="center"><iframe width="450" height="350" src="https://www.youtube.com/embed/iQMCxvHbnTw" frameborder="0" allowfullscreen></iframe></div> -->             
                 </div>
                 <!-- END CAROUSEL -->                             
 
                 <!-- BEGIN PORTFOLIO DESCRIPTION -->            
                 <div class="col-md-7">
+                  <h2>Control de acceso</h2>
+
+                  <p>Esta nueva versión ofrece la posibilidad de registrar nuevos usuarios para llevar un control de ventas por cada miembro de tu óptica registrado en el sistema.</p>
+
                   <h2>Sistema para opticas</h2>
 
-                  <p>OptiData es una aplicación de escritorio utilizado para registrar recetas de lentes y datos de clientes en las ópticas, tiene la capacidad tanto de imprimir el comprobante para el cliente como de enviarlo por correo, envía reporte de recetas efectuadas y obtiene reportes de clientes.</p>
+                  <p>Optics es un software de escritorio ligero y fácil de usar, su función es registrar las recetas de los lentes en una base de datos, genera reportes en distintos formatos y mantiene la información compacta y accesible.</p>
 
                   <h2>Adaptable</h2>
-                  <p>El sistema admite más de un equipo conectado a la misma base de datos, admite sistemas operativos como Windows, Linux y Mac, no requiere internet y es de fácil adaptabilidad por parte del usuario final, genera reportes en Excel, entre otras características.</p>
+                  <p>El sistema admite más de un equipo conectado al mismo centro de datos sin depender siempre de estar cnectado a internet, admite sistemas operativos como Windows, Linux y Mac.</p>
 
                   <h2>Dinámico</h2>
-                  <p>El software se encarga de contener toda la información en una base de datos que además puede ser respaldada por el usuario, en él se almacena la información de los clientes, las recetas, y los abonos efectuados, todo esto de forma dinámica y de fácil acceso para generar reportes y enviar correos a los clientes con mucha facilidad.</p>
+                  <p>El software se encarga de contener toda la información en una base de datos que además puede ser respaldada por el usuario, en él se almacena la información de los clientes, las recetas, y los abonos efectuados, gestión de inventario y convenios.</p>
 
 
                   
@@ -283,18 +286,46 @@ $proyectos=ProyectoDao::sqlTodo();
                     <div class="col-md-6">
                       <ul class="list-unstyled">
                         <li><i class="fa fa-check"></i> Registro de clientes</li>
+                        <li><i class="fa fa-check"></i> Registro de usuarios</li>
                         <li><i class="fa fa-check"></i> Registro de recetas</li>
                         <li><i class="fa fa-check"></i> Impresión de recetas y comprobantes</li>
+                        <li><i class="fa fa-check"></i> Reportes de ventas por usuarios</li>
+                        <li><i class="fa fa-check"></i> Reportes por email y documentos digitales</li>
+                        <li><i class="fa fa-check"></i> Base de datos remota y local</li>
+                        <li><i class="fa fa-check"></i> Mantén tus datos seguros con distintos tipos de usuarios y privilegios</li>
                       </ul>
                     </div>
                     <div class="col-md-6">
                       <ul class="list-unstyled">
                         <li><i class="fa fa-check"></i> Registro de abonos</li>
+                        <li><i class="fa fa-check"></i> Registro de inventario</li>
+                        <li><i class="fa fa-check"></i> Genera orden de compras en Excel</li>
                         <li><i class="fa fa-check"></i> Envío de comprobantes por correo</li>
                         <li><i class="fa fa-check"></i> Reportes por correo</li>
+                        <li><i class="fa fa-check"></i> Fácil instalación</li>
+                        <li><i class="fa fa-check"></i> No requiere conocimiento previo para su uso</li>
                       </ul>
                     </div>
                   </div>
+
+                  <div class="col-md-6">
+                        <a class="twitter-follow-button"
+                            href="https://twitter.com/softdirex">
+                            Follow @Softdirex</a>
+                        
+
+                        <a class="twitter-share-button"
+                        href="https://twitter.com/intent/tweet?text=Un sistema hecho para tu óptica @softdirex">
+                        Tweet</a>
+
+                        <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: es_ES</script>
+                        <script type="IN/Share" data-url="http://softdirex.cl/portafolio/optics4.php"></script>
+                        
+                        <div class="fb-like" data-href="http://softdirex.cl/portafolio/optics4.php" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                        
+                        <a href="https://api.whatsapp.com/send?text=Me%20gustaría%20compartirte%20esta%20info%20http://softdirex.cl/portafolio/optics4.php" style="border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px; display: inline-block; text-decoration: none; text-align: center; font-size: x-small; padding: 4px; color: white; background-color: green;" target="_blank"><i class="fa fa-whatsapp"></i>Compartir</a>
+                </div>
+                </div>
                   <h2>Desglose del proyecto</h2>
                     <div id="accordion1" class="panel-group">
                         <div class="panel panel-info">
@@ -325,8 +356,8 @@ $proyectos=ProyectoDao::sqlTodo();
                             </div>
                             <div style="height: 0px;" id="accordion1_3" class="panel-collapse collapse">
                                  <div class="panel-body">
-                                    <p class="lead">Optidata es una aplicación de escritorio diseñada para las ópticas en donde se podrá llevar un registro exacto de las recetas, clientes armazones etc.</p>
-                                    <p class="lead">Esta aplicación se conecta a una base de datos local en donde los distintos equipos podrán conectarse sin la necesidad de una conexión a internet trabajando simultáneamente evitando el duplicado de la información.</p>
+                                    <p class="lead">Optics 4 es una aplicación de escritorio diseñada para las ópticas en donde se podrá llevar un registro exacto de las recetas, clientes armazones etc.</p>
+                                    <p class="lead">Esta aplicación se conecta a una base de datos local y remota en donde los distintos equipos podrán conectarse sin la necesidad de una conexión a internet trabajando simultáneamente evitando el duplicado de la información.</p>
                                 </div>
                             </div>
                         </div>
@@ -354,7 +385,7 @@ $proyectos=ProyectoDao::sqlTodo();
                             </div>
                             <div style="height: 0px;" id="accordion1_5" class="panel-collapse collapse">
                                  <div class="panel-body">
-                                    <p class="lead">El sistema envía reportes por fecha al email del administrador en donde se contiene la información de la cantidad de lentes comprados junto con el total de ventas y abonos registrados.</p>
+                                    <p class="lead">El sistema envía reportes por fecha al email del administrador en donde se contiene la información de la cantidad de lentes comprados junto con el total de ventas por vendedor y abonos registrados.</p>
                                 </div>
                             </div>
                         </div>
@@ -368,7 +399,7 @@ $proyectos=ProyectoDao::sqlTodo();
                             </div>
                             <div style="height: 0px;" id="accordion1_6" class="panel-collapse collapse">
                                  <div class="panel-body">
-                                    <p class="lead">Se pueden registrar los descuentos, se administran los abonos de cada cliente y se registran los despachos junto con los datos del responsable. La información es validada por el sistema para que cada registro ingresado sea correcto y real.</p>
+                                    <p class="lead">Se pueden registrar usuarios, clientes, recetas, instituciones, descuentos, etc., se administran los abonos de cada cliente y se registran los despachos junto con los datos del responsable. La información es validada por el sistema para que cada registro ingresado sea correcto y real.</p>
                                 </div>
                             </div>
                         </div>
@@ -382,7 +413,7 @@ $proyectos=ProyectoDao::sqlTodo();
                             </div>
                             <div style="height: 0px;" id="accordion1_7" class="panel-collapse collapse">
                                  <div class="panel-body">
-                                    <p class="lead">Versión 2.2.3</p>
+                                    <p class="lead">Versión 4.0.0</p>
                                 </div>
                                 <div class="panel-body">
                                     <p class="lead">Requisitos mínimos del sistema</p>
@@ -392,28 +423,9 @@ $proyectos=ProyectoDao::sqlTodo();
                                       <li>RAM: 1 GB</li>
                                       <li>Almacenamiento en disco duro: 1 GB</li>
                                       <li>Resolución de pantalla: 1024x768</li>
-                                      <li>Conexión a internet: Necesaria solo para enviar reportes</li>
-                                      <li>Conexión local: Puerto LAN para más de un equipo conectado al sistema</li>
-                                      <li>Componentes adicionales: Wamp Server solo en el servidor, Java instalado</li>
+                                      <li>Conexión a internet: Sólo para respaldo y sincronización</li>
+                                      <li>Componentes adicionales: El sistema es íntegro y solo necesitas tener instalado Java 8 o superior</li>
                                     </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_8">
-                                    Progreso
-                                    </a>
-                                </h4>
-                            </div>
-                            <div style="height: 0px;" id="accordion1_8" class="panel-collapse collapse">
-                                 <div class="panel-body">
-                                    
-                                    <span>Porcentaje de progreso: 100%</span>
-                                    <div class="progress">
-                                      <div role="progressbar" class="progress-bar" style="width: 100%;"></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -422,14 +434,26 @@ $proyectos=ProyectoDao::sqlTodo();
                 <!-- END PORTFOLIO DESCRIPTION -->            
               </div>
 
+              
+
               <div class="row quote-v1 margin-bottom-30">
                 <div class="col-md-5 quote-v1-inner">
-                  <span>Descubre nuestro último software para ópticas, más rápido, más fácil de usar y más moderno!</span>
+                  <span>Me interesa y quiero cotizar  </span>
                 </div>
                 <div class="col-md-7 quote-v1-inner text-right">
-                  <a href="optics4.php" class="btn-transparent"><i class="fa fa-rocket margin-right-10"></i>Ir al sitio</a>
+                  <a href="../page-contacts.html" class="btn-transparent"><i class="fa fa-rocket margin-right-10"></i>Contactar</a>
                 </div>
               </div>
+
+              <div class="row quote-v1 margin-bottom-30">
+                <div class="col-md-5 quote-v1-inner">
+                  <span>Solicita tu licencia de prueba y sorpréndete con nuestro producto</span>
+                </div>
+                <div class="col-md-7 quote-v1-inner text-right">
+                  <a href="http://www.mediafire.com/file/nie42wcs7kjcoha/Optics400.exe/file" target="_blank" class="btn-transparent"><i class="fa fa-download margin-right-10"></i>Descargar</a>
+                </div>
+              </div>
+
 
         <!-- BEGIN RECENT WORKS -->
         <div class="row recent-work margin-bottom-40">

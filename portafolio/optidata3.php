@@ -31,11 +31,11 @@ $proyectos=ProyectoDao::sqlTodo();
   <meta name="description" content="OptiData es una aplicación de escritorio utilizado para registrar recetas de lentes y datos de clientes en las ópticas, tiene la capacidad tanto de imprimir el comprobante para el cliente como de enviarlo por correo, envía reporte de recetas efectuadas y obtiene reportes de clientes." name="keywords">
   <meta content="softdirex" name="author">
 
-  <meta property="og:site_name" content="-CUSTOMER VALUE-">
-  <meta property="og:title" content="OptiData 3">
+  <meta property="og:site_name" content="Optidata 3.2">
+  <meta property="og:title" content="Conoce el software para ópticas">
   <meta property="og:description" content="OptiData es una aplicación de escritorio utilizado para registrar recetas de lentes y datos de clientes en las ópticas, tiene la capacidad tanto de imprimir el comprobante para el cliente como de enviarlo por correo, envía reporte de recetas efectuadas y obtiene reportes de clientes.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="-CUSTOMER VALUE-"><!-- link to image for socio -->
+  <meta property="og:image" content="https://softdirex.cl/assets/pages/img/works/img7.jpg"><!-- link to image for socio -->
   <meta property="og:url" content="https://softdirex.cl/portafolio/optidata3.php">
 
   <link rel="shortcut icon" href="../favicon.ico">
@@ -68,6 +68,16 @@ $proyectos=ProyectoDao::sqlTodo();
 
 <!-- Body BEGIN -->
 <body class="corporate">
+<!-- API FACEBOOK BEGIN -->
+<div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.12&appId=598270976878270&autoLogAppEvents=1';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <!-- API FACEBOOK END -->
     <!-- BEGIN STYLE CUSTOMIZER -->
     <div class="pre-header">
         <div class="container">
@@ -313,6 +323,24 @@ $proyectos=ProyectoDao::sqlTodo();
                         <li><i class="fa fa-check"></i> Reportes por correo</li>
                       </ul>
                     </div>
+                    <div class="col-md-6">
+                        <a class="twitter-follow-button"
+                            href="https://twitter.com/softdirex">
+                            Follow @Softdirex</a>
+                        
+
+                        <a class="twitter-share-button"
+                        href="https://twitter.com/intent/tweet?text=Un sistema hecho para tu óptica @softdirex">
+                        Tweet</a>
+
+                        <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: es_ES</script>
+                        <script type="IN/Share" data-url="http://softdirex.cl/portafolio/optidata3.php"></script>
+                        
+                        <div class="fb-like" data-href="http://softdirex.cl/portafolio/optidata3.php" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                        
+                        <a href="https://api.whatsapp.com/send?text=Me%20gustaría%20compartirte%20esta%20info%20http://softdirex.cl/portafolio/optidata3.php" style="border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px; display: inline-block; text-decoration: none; text-align: center; font-size: x-small; padding: 4px; color: white; background-color: green;" target="_blank"><i class="fa fa-whatsapp"></i>Compartir</a>
+                    </div>
+
                   </div>
                   <h2>Desglose del proyecto</h2>
                     <div id="accordion1" class="panel-group">
@@ -443,12 +471,14 @@ $proyectos=ProyectoDao::sqlTodo();
 
               <div class="row quote-v1 margin-bottom-30">
                 <div class="col-md-5 quote-v1-inner">
-                  <span>Me interesa y quiero cotizar  </span>
+                  <span>Descubre nuestro último software para ópticas, más rápido, más fácil de usar y más moderno!</span>
                 </div>
                 <div class="col-md-7 quote-v1-inner text-right">
-                  <a href="../page-contacts.html" class="btn-transparent"><i class="fa fa-rocket margin-right-10"></i>Contactar</a>
+                  <a href="optics4.php" class="btn-transparent"><i class="fa fa-rocket margin-right-10"></i>Ir al sitio</a>
                 </div>
               </div>
+
+              <hr>
 
         <!-- BEGIN RECENT WORKS -->
         <div class="row recent-work margin-bottom-40">
